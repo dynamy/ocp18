@@ -17,4 +17,4 @@ oc process -f ${OS_PROJECT}.yml -v OS_MASTER_IP=${OS_MASTER_IP} -v OS_PROJECT=${
 
 In this example, `OS_MASTER_IP` refers to the IP of your OpenShift cluster's master and has to be provided for the application's services to be properly exposed to the outside world.
 
-After deployment, you can look up the addresses the application services are exposed at via `oc status`.
+After deployment, you can look up the addresses the application services are exposed at via `oc status`. A user would typically access the application via the `frontend`service.
