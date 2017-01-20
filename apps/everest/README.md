@@ -5,10 +5,13 @@ The everest monolithic application is part of [Arun Gupta's microservices projec
 ## Deployment
 
 ```
+export OS_MASTER_IP=1.2.3.4
 export OS_PROJECT=everest
 
-oc login https://$OS_MASTER_IP -u developer
+oc login https://${OS_MASTER_IP}:8443 -u developer
 
-oc new-project "$OS_PROJECT"
-oc create -f "$OS_PROJECT.yml"
+oc new-project ${OS_PROJECT}
+oc create -f ${OS_PROJECT}.yml
 ```
+
+After deployment, you can look up the address the application is exposed at via `oc status`. Assuming `http://everest-everest.1.2.3.4.xip.io`, you can access the application via `http://everest-everest.1.2.3.4.xip.io/everest-1.0-SNAPSHOT`.

@@ -5,23 +5,23 @@
 By default, processes inside a Docker container run as user `root`. Being a secure container platform, OpenShift won't allow you doing so by default. By widening OpenShift's *securty context constraints*, you can run [Dockerized easyTravel](https://github.com/dynatrace-innovationlab/easyTravel-OpenShift) on OpenShift, despite its various processes running as `root`:
 
 ```
-export $OS_MASTER_IP=1.2.3.4
-export $OS_PROJECT=easytravel
+export OS_MASTER_IP=1.2.3.4
+export OS_PROJECT=easytravel
 
 oc login https://${OS_MASTER_IP}:8443 -u system:admin
-oc adm policy add-scc-to-user anyuid -z default -n "$OS_PROJECT"
+oc adm policy add-scc-to-user anyuid -z default -n ${OS_PROJECT}
 ```
 
 ## Deployment
 
 ```
-export $OS_MASTER_IP=1.2.3.4
-export $OS_PROJECT=easytravel
+export OS_MASTER_IP=1.2.3.4
+export OS_PROJECT=easytravel
 
 oc login https://${OS_MASTER_IP}:8443 -u developer
 
 oc new-project ${OS_PROJECT}
-oc create -f ${OS_PROJECT}.yml
+oc new-app ${OS_PROJECT}.yml
 ```
 
 Instead of using the `easytravel.yml` application template, you may also use `easytravel-with-loadgen.yml`, which adds the easyTravel loadgen component to the application, and by default, enables a variety of problem patterns for your convenience.

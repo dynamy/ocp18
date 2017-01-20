@@ -1,7 +1,11 @@
 OS_MASTER_IP="$1"
 
+if [ -z "$OS_MASTER_IP" ]; then
+  exit 1
+fi
+
 # Run OpenShift cluster
-oc cluster up --hostname="$OS_MASTER_IP"
+oc cluster up --public-hostname="$OS_MASTER_IP"
 
 sudo cp /var/lib/origin/openshift.local.config/master/admin.kubeconfig ~/.kube/config
 sudo chown "$USER:$USER" ~/.kube/config

@@ -1,7 +1,3 @@
-# OpenShift with Dynatrace - Demo Environment
+# OpenShift Demo Environment for Dynatrace
 
-This project allows you to spin up a demo environment including demo applications OpenShift with Dynatrace.
-
-## Vagrant
-
-The `vagrant` folder contains a Vagrantfile and and a provisioner.sh script that 
+This project allows you to create an OpenShift demo environment including a variety of applications to be monitored by Dynatrace. Please have a look at the directories for further information.
