@@ -1,0 +1,56 @@
+apiVersion: "v1"
+kind: "List"
+metadata: {}
+items:
+- apiVersion: "v1"
+  kind: "DeploymentConfig"
+  metadata:
+    labels:
+      app: "everest"
+    name: "everest"
+  spec:
+    replicas: "1"
+    selector:
+      app: "everest"
+      deploymentconfig: "everest"
+    strategy:
+      resources: {}
+    template:
+      metadata:
+        labels:
+          app: "everest"
+          deploymentconfig: "everest"
+      spec:
+        containers:
+        - image: "docker.io/metmajer/everest"
+          name: "everest"
+          ports:
+          - containerPort: 8080
+            protocol: "TCP"
+          resources: {}
+  status: {}
+- apiVersion: v1
+  kind: "Service"
+  metadata:
+    labels:
+      app: "everest"
+    name: "everest"
+  spec:
+    ports:
+    - name: "8080-tcp"
+      port: 8080
+      protocol: "TCP"
+      targetPort: 8080
+    selector:
+      app: "everest"
+      deploymentconfig: "everest"
+  status:
+    loadBalancer: {}
+- apiVersion: "v1"
+  kind: "Route"
+  metadata:
+    name: "everest"
+  spec:
+    to:
+      kind: "Service"
+      name: "everest"
