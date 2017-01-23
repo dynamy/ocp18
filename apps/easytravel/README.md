@@ -14,14 +14,31 @@ oc adm policy add-scc-to-user anyuid -z default -n ${OS_PROJECT}
 
 ## Deployment
 
+In the following examples, `OS_MASTER_IP` refers to the IP of your OpenShift cluster's master. After deployment, you can look up the address the application is exposed at via `oc status`.
+
+### Linux / MacOS
+
 ```
 export OS_MASTER_IP=1.2.3.4
 export OS_PROJECT=easytravel
 
-oc login https://${OS_MASTER_IP}:8443 -u developer
+oc login https://${OS_MASTER_IP}:8443 -u developer -p developer
 
 oc new-project ${OS_PROJECT}
 oc new-app ${OS_PROJECT}.yml
+```
+
+### Windows
+
+```
+@echo off
+set OS_MASTER_IP=1.2.3.4
+set OS_PROJECT=easytravel
+
+oc login https://${OS_MASTER_IP}:8443 -u developer -p developer
+
+oc new-project %OS_PROJECT%
+oc create -f %OS_PROJECT%.yml
 ```
 
 Instead of using the `easytravel.yml` application template, you may also use `easytravel-with-loadgen.yml`, which adds the easyTravel loadgen component to the application, and by default, enables a variety of problem patterns for your convenience.
