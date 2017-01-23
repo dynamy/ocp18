@@ -14,7 +14,7 @@ After deployment, you can look up the addresses the application services are exp
 export OS_MASTER_IP=1.2.3.4
 export OS_PROJECT=helloworld-msa
 
-oc login https://${OS_MASTER_IP}:8443 -u developer -p developer
+oc login https://${OS_MASTER_IP}:8443 -u developer -p developer --insecure-skip-tls-verify
 
 oc new-project ${OS_PROJECT}
 oc policy add-role-to-user admin system:serviceaccount:${OS_PROJECT}:turbine
@@ -28,7 +28,7 @@ oc process -f ${OS_PROJECT}.yml -v OS_MASTER_IP=${OS_MASTER_IP} -v OS_PROJECT=${
 set OS_MASTER_IP=1.2.3.4
 set OS_PROJECT=helloworld-msa
  
-oc login https://%OS_MASTER_IP%:8443 -u developer -p developer
+oc login https://%OS_MASTER_IP%:8443 -u developer -p developer --insecure-skip-tls-verify
  
 oc new-project %OS_PROJECT%
 oc policy add-role-to-user admin system:serviceaccount:%OS_PROJECT%:turbine

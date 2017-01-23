@@ -37,18 +37,5 @@ export DT_TENANT_TOKEN="..."
 Once OpenShift is up and running, you can connect to the cluster using the `oc login` command via:
 
 ```
-oc login https://1.2.3.4:8443
-```
-
-## Issues
-
-```
-$ oc login https://1.2.3.4:8443
-error: The server uses a certificate signed by unknown authority. You may need to use the --certificate-authority flag to provide the path to a certificate file for the certificate authority, or --insecure-skip-tls-verify to bypass the certificate check and use insecure connections.
-```
-
-If you see this error, you need to add the `--insecure-skip-tls-verify` option to the `oc login` command:
-
-```
-oc login https://1.2.3.4:8443 --insecure-skip-tls-verify
+oc login https://1.2.3.4:8443 -u developer -p developer --insecure-skip-tls-verify
 ```

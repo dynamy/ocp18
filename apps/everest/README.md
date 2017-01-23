@@ -12,7 +12,7 @@ In the following examples, `OS_MASTER_IP` refers to the IP of your OpenShift clu
 export OS_MASTER_IP=1.2.3.4
 export OS_PROJECT=everest
 
-oc login https://${OS_MASTER_IP}:8443 -u developer -p developer
+oc login https://${OS_MASTER_IP}:8443 -u developer -p developer --insecure-skip-tls-verify
 
 oc new-project ${OS_PROJECT}
 oc create -f ${OS_PROJECT}.yml
