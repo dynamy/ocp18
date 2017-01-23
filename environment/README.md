@@ -22,6 +22,8 @@ Once the virtual machine has been launched, you have to `vagrant ssh` into the b
 
 In addition to running OpenShift, you most probably want to have your demo environment equipped with Dynatrace OneAgent for full-stack monitoring. You can do so by applying the following environment variables, where `DT_TENANT_ID` and `DT_TENANT_TOKEN` are to be taken from your Dynatrace installation:
 
+![OneAgent Installation](https://github.com/dynatrace-innovationlab/openshift-demo-environment/raw/images/oneagent-installation.png)
+
 ```
 export DT_CLUSTER="live.dynatrace.com"
 export DT_TENANT_ID="..."
