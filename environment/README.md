@@ -16,13 +16,13 @@ vagrant up
 
 Once the virtual machine has been launched, run `vagrant ssh` on your terminal to connect into the virtual machine via SSH.
 
-Next, you determine your virtual machine's public IP, e.g. via `ifconfig`, so that OpenShift can bind to it when you start it using the `up.sh` script. Let's assume yor virtual machine publicly resolves to `1.2.3.4`.
+When inside the virtual machine, you'll need to determine the machine's public IP address, e.g. via `ifconfig`, and take a note of it. You'll have to provide it to OpenShift so that it can bind to this address when you start it using the `up.sh` script below. Let's assume yor virtual machine publicly resolves to `1.2.3.4`.
 
-In addition to running OpenShift, you'll want to have your demo environment equipped with Dynatrace OneAgent for full-stack monitoring. You can do so by applying the following environment variables, where `DT_TENANT_ID` and `DT_TENANT_TOKEN` are to be taken from your Dynatrace installation:
+In addition to running OpenShift, you'll want to have your demo environment equipped with Dynatrace OneAgent for full-stack monitoring. You can do so by applying the following environment variables, where `DT_TENANT_ID` and `DT_TENANT_TOKEN` are to be taken from your Dynatrace installation. If any of these is omitted, an installation of Dynatrace OneAgent will not be pursued.
 
 ![OneAgent Installation](https://github.com/dynatrace-innovationlab/openshift-demo-environment/raw/images/oneagent-installation.png)
 
-Now, you can start OpenShift and install Dynatrace OneAgent via `up.sh` like so:
+Finally, you can start OpenShift and install Dynatrace OneAgent via `up.sh` like so.
 
 ```
 export DT_CLUSTER="live.dynatrace.com"
@@ -30,4 +30,25 @@ export DT_TENANT_ID="..."
 export DT_TENANT_TOKEN="..."
 
 ./up.sh "1.2.3.4"
+```
+
+# Connecting
+
+Once OpenShift is up and running, you can connect to the cluster using the `oc login` command via:
+
+```
+oc login https://1.2.3.4:8443
+```
+
+## Issues
+
+```
+$ oc login https://1.2.3.4:8443
+error: The server uses a certificate signed by unknown authority. You may need to use the --certificate-authority flag to provide the path to a certificate file for the certificate authority, or --insecure-skip-tls-verify to bypass the certificate check and use insecure connections.
+```
+
+If you see this error, you need to add the `--insecure-skip-tls-verify` option to the `oc login` command:
+
+```
+oc login https://1.2.3.4:8443 --insecure-skip-tls-verify
 ```
