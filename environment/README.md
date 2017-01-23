@@ -14,15 +14,15 @@ The following `vagrant up` command will spawn a `ubuntu/xenial64` Vagrant box fr
 vagrant up
 ```
 
-Once the virtual machine has been launched, you have to `vagrant ssh` into the box and obtain the virtual machine's public IP via `ifconfig`. Then, apply this IP address to the provided `up.sh` script to prepare OpenShift like so:
+Once the virtual machine has been launched, run `vagrant ssh` on your terminal to connect into the virtual machine via SSH.
 
-```
-./up.sh "1.2.3.4"
-```
+Next, you determine your virtual machine's public IP, e.g. via `ifconfig`, so that OpenShift can bind to it when you start it using the `up.sh` script. Let's assume yor virtual machine publicly resolves to `1.2.3.4`.
 
-In addition to running OpenShift, you most probably want to have your demo environment equipped with Dynatrace OneAgent for full-stack monitoring. You can do so by applying the following environment variables, where `DT_TENANT_ID` and `DT_TENANT_TOKEN` are to be taken from your Dynatrace installation:
+In addition to running OpenShift, you'll want to have your demo environment equipped with Dynatrace OneAgent for full-stack monitoring. You can do so by applying the following environment variables, where `DT_TENANT_ID` and `DT_TENANT_TOKEN` are to be taken from your Dynatrace installation:
 
 ![OneAgent Installation](https://github.com/dynatrace-innovationlab/openshift-demo-environment/raw/images/oneagent-installation.png)
+
+Now, you can start OpenShift and install Dynatrace OneAgent via `up.sh` like so:
 
 ```
 export DT_CLUSTER="live.dynatrace.com"
