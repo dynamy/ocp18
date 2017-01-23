@@ -32,7 +32,7 @@ export DT_TENANT_TOKEN="..."
 ./up.sh "1.2.3.4"
 ```
 
-# Connecting
+## Connecting
 
 Once OpenShift is up and running, you can connect to the cluster using the `oc login` command via:
 
