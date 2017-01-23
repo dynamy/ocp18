@@ -17,5 +17,5 @@ oc adm policy add-scc-to-user anyuid -z default
 DT_CLUSTER="${DT_CLUSTER:-live.dynatrace.com}"
 if [ -n "$DT_TENANT_ID" ] && [ -n "$DT_TENANT_TOKEN" ]; then
   wget -O Dynatrace-OneAgent.sh "https://${DT_TENANT_ID}.${DT_CLUSTER}/installer/agent/unix/latest/${DT_TENANT_TOKEN}"
-  /bin/sh Dynatrace-OneAgent.sh APP_LOG_CONTENT_ACCESS=1
+  sudo /bin/sh Dynatrace-OneAgent.sh APP_LOG_CONTENT_ACCESS=1
 fi
