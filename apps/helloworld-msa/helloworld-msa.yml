@@ -1,7 +1,10 @@
 ---
 apiVersion: "v1"
 kind: "Template"
-metadata: {}
+metadata:
+  name: "helloworld-msa"
+  annotations:
+    description: "The Red Hat HelloWorld MSA (Microservice Architecture)."
 objects:
 - apiVersion: "v1"
   kind: "ServiceAccount"
@@ -27,13 +30,13 @@ objects:
           deploymentconfig: "turbine-server"
       spec:
         containers:
-        - env:
+        - name: "turbine-server"
+          image: "metmajer/turbine-server:1.0.26.1"
+          env:
           - name: "KUBERNETES_MASTER"
             value: "https://${OS_MASTER_IP}:8443"
           - name: "KUBERNETES_NAMESPACE"
             value: "${OS_PROJECT}"
-          image: "metmajer/turbine-server:1.0.26.1"
-          name: "turbine-server"
           ports:
           - containerPort: 9779
             protocol: "TCP"
@@ -41,6 +44,12 @@ objects:
             protocol: "TCP"
           - containerPort: 8778
             protocol: "TCP"
+          readinessProbe:
+            httpGet:
+              path: "/turbine.stream"
+              port: 8080
+            initialDelaySeconds: 15
+            timeoutSeconds: 5
           resources: {}
         serviceAccountName: "turbine"
   status: {}
@@ -74,6 +83,8 @@ objects:
   metadata:
     name: "turbine-server"
   spec:
+    port:
+      targetPort: 8080
     to:
       kind: "Service"
       name: "turbine-server"
@@ -97,8 +108,8 @@ objects:
           deploymentconfig: "hystrix-dashboard"
       spec:
         containers:
-        - image: "metmajer/hystrix-dashboard:1.0.26.1"
-          name: "hystrix-dashboard"
+        - name: "hystrix-dashboard"
+          image: "metmajer/hystrix-dashboard:1.0.26.1"
           ports:
           - containerPort: 8080
             protocol: "TCP"
@@ -106,6 +117,12 @@ objects:
             protocol: "TCP"
           - containerPort: 9779
             protocol: "TCP"
+          readinessProbe:
+            httpGet:
+              path: "/"
+              port: 8080
+            initialDelaySeconds: 15
+            timeoutSeconds: 5
           resources: {}
   status: {}
 - apiVersion: "v1"
@@ -165,8 +182,8 @@ objects:
           deploymentconfig: "frontend"
       spec:
         containers:
-        - image: "docker.io/metmajer/msa-frontend"
-          name: "frontend"
+        - name: "frontend"
+          image: "docker.io/metmajer/msa-frontend"
           env:
           - name: "APIGATEWAYURL"
             value: "http://api-gateway-${OS_PROJECT}.${OS_MASTER_IP}.xip.io/api"
@@ -195,6 +212,12 @@ objects:
           ports:
           - containerPort: 8080
             protocol: "TCP"
+          readinessProbe:
+            httpGet:
+              path: "/"
+              port: 8080
+            initialDelaySeconds: 15
+            timeoutSeconds: 5
           resources: {}
   status: {}
 - apiVersion: "v1"
@@ -245,8 +268,8 @@ objects:
           hystrix.enabled: "true"
       spec:
         containers:
-        - image: "docker.io/metmajer/msa-api-gateway"
-          name: "api-gateway"
+        - name: "api-gateway"
+          image: "docker.io/metmajer/msa-api-gateway"
           ports:
           - containerPort: 9779
             protocol: "TCP"
@@ -254,6 +277,12 @@ objects:
             protocol: "TCP"
           - containerPort: 8778
             protocol: "TCP"
+          readinessProbe:
+            httpGet:
+              path: "/health"
+              port: 8080
+            initialDelaySeconds: 15
+            timeoutSeconds: 5
           resources: {}
   status: {}
 - apiVersion: "v1"
@@ -314,8 +343,8 @@ objects:
           hystrix.enabled: "true"
       spec:
         containers:
-        - image: "docker.io/metmajer/msa-aloha"
-          name: "aloha"
+        - name: "aloha"
+          image: "docker.io/metmajer/msa-aloha"
           ports:
           - containerPort: 8080
             protocol: "TCP"
@@ -323,6 +352,12 @@ objects:
             protocol: "TCP"
           - containerPort: 9779
             protocol: "TCP"
+          readinessProbe:
+            httpGet:
+              path: "/health"
+              port: 8080
+            initialDelaySeconds: 15
+            timeoutSeconds: 5
           resources: {}
   status: {}
 - apiVersion: "v1"
@@ -356,6 +391,8 @@ objects:
   metadata:
     name: "aloha"
   spec:
+    port:
+      targetPort: 8080
     to:
       kind: "Service"
       name: "aloha"
@@ -381,11 +418,17 @@ objects:
           hystrix.enabled: "true"
       spec:
         containers:
-        - image: "docker.io/metmajer/msa-bonjour"
-          name: "bonjour"
+        - name: "bonjour"
+          image: "docker.io/metmajer/msa-bonjour"
           ports:
           - containerPort: 8080
             protocol: "TCP"
+          readinessProbe:
+            httpGet:
+              path: "/health"
+              port: 8080
+            initialDelaySeconds: 15
+            timeoutSeconds: 5
           resources: {}
   status: {}
 - apiVersion: "v1"
@@ -436,8 +479,8 @@ objects:
           hystrix.enabled: "true"
       spec:
         containers:
-        - image: "docker.io/metmajer/msa-hola"
-          name: "hola"
+        - name: "hola"
+          image: "docker.io/metmajer/msa-hola"
           ports:
           - containerPort: 9779
             protocol: "TCP"
@@ -445,6 +488,12 @@ objects:
             protocol: "TCP"
           - containerPort: 8778
             protocol: "TCP"
+          readinessProbe:
+            httpGet:
+              path: "/health"
+              port: 8080
+            initialDelaySeconds: 15
+            timeoutSeconds: 5
           resources: {}
   status: {}
 - apiVersion: "v1"
@@ -505,8 +554,8 @@ objects:
           hystrix.enabled: "true"
       spec:
         containers:
-        - image: "docker.io/metmajer/msa-ola"
-          name: "ola"
+        - name: "ola"
+          image: "docker.io/metmajer/msa-ola"
           ports:
           - containerPort: 8778
             protocol: "TCP"
@@ -514,6 +563,12 @@ objects:
             protocol: "TCP"
           - containerPort: 8080
             protocol: "TCP"
+          readinessProbe:
+            httpGet:
+              path: "/health"
+              port: 8080
+            initialDelaySeconds: 15
+            timeoutSeconds: 5
           resources: {}
   status: {}
 - apiVersion: "v1"
@@ -555,7 +610,9 @@ objects:
 parameters:
 - name: "OS_MASTER_IP"
   description: "The IP address of your OpenShift cluster's master"
-  value: "1.2.3.4"
+  value: ""
+  required: true
 - name: "OS_PROJECT"
-  description: "The name of the project (namespace)"
-  value: "msa"
+  description: "The name of the project"
+  value: "helloworld-msa"
+  required: true

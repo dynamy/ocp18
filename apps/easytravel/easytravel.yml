@@ -1,174 +1,270 @@
-apiVersion: v1
-kind: Template
+---
+apiVersion: "v1"
+kind: "Template"
 metadata:
-  name: dynatrace-easytravel
-  labels:
-    name: dynatrace-easytravel
+  name: "easytravel"
+  annotations:
+    description: "The Dynatrace easyTravel sample application."
 objects:
-- apiVersion: v1
-  kind: ReplicationController
+- apiVersion: "v1"
+  kind: "DeploymentConfig"
   metadata:
-    name: easytravel-mongodb
     labels:
-      app: easytravel-mongodb
+      app: "mongodb"
+    name: "mongodb"
   spec:
+    replicas: "1"
     selector:
-      app: easytravel-mongodb
+      app: "mongodb"
+      deploymentconfig: "mongodb"
+    strategy:
+      resources: {}
     template:
       metadata:
-        name: easytravel-mongodb
         labels:
-          app: easytravel-mongodb
+          app: "mongodb"
+          deploymentconfig: "mongodb"
       spec:
         containers:
-        - name: easytravel-mongodb
-          image: dynatrace/easytravel-mongodb
+        - name: "mongodb"
+          image: "docker.io/dynatrace/easytravel-mongodb"
           ports:
           - containerPort: 27017
-            protocol: TCP
+            protocol: "TCP"
           - containerPort: 28017
-            protocol: TCP
-- apiVersion: v1
-  kind: ReplicationController
+            protocol: "TCP"
+          readinessProbe:
+            tcpSocket:
+              port: 27017
+            initialDelaySeconds: 15
+            timeoutSeconds: 5
+          resources: {}
+  status: {}
+- apiVersion: "v1"
+  kind: "Service"
   metadata:
-    name: easytravel-backend
     labels:
-      app: easytravel-backend
-  spec:
-    selector:
-      app: easytravel-backend
-    template:
-      metadata:
-        name: easytravel-backend
-        labels:
-          app: easytravel-backend
-      spec:
-        containers:
-        - name: easytravel-backend
-          image: dynatrace/easytravel-backend
-          env:
-          - name: ET_DATABASE_LOCATION
-            value: easytravel-mongodb:27017
-          ports:
-          - containerPort: 8080
-            protocol: TCP
-- apiVersion: v1
-  kind: ReplicationController
-  metadata:
-    name: easytravel-frontend
-    labels:
-      app: easytravel-frontend
-  spec:
-    selector:
-      app: easytravel-frontend
-    template:
-      metadata:
-        name: easytravel-frontend
-        labels:
-          app: easytravel-frontend
-      spec:
-        containers:
-        - name: easytravel-frontend
-          image: dynatrace/easytravel-frontend
-          env:
-          - name: ET_BACKEND_URL
-            value: http://easytravel-backend:8080
-          ports:
-          - containerPort: 8080
-            protocol: TCP
-- apiVersion: v1
-  kind: ReplicationController
-  metadata:
-    name: easytravel-www
-    labels:
-      app: easytravel-www
-  spec:
-    selector:
-      app: easytravel-www
-    template:
-      metadata:
-        name: easytravel-www
-        labels:
-          app: easytravel-www
-      spec:
-        containers:
-        - name: easytravel-nginx
-          image: dynatrace/easytravel-nginx
-          env:
-          - name: ET_FRONTEND_LOCATION
-            value: easytravel-frontend:8080
-          - name: ET_BACKEND_LOCATION
-            value: easytravel-backend:8080
-          ports:
-          - containerPort: 80
-            protocol: TCP
-          - containerPort: 8080
-            protocol: TCP
-- apiVersion: v1
-  kind: Service
-  metadata:
-    name: easytravel-mongodb
-    labels:
-      app: easytravel-mongodb
+      app: "mongodb"
+    name: "mongodb"
   spec:
     ports:
-    - name: 27017-tcp
+    - name: "27017-tcp"
       port: 27017
-      protocol: TCP
+      protocol: "TCP"
       targetPort: 27017
-    - name: 28017-tcp
+    - name: "28017-tcp"
       port: 28017
-      protocol: TCP
+      protocol: "TCP"
       targetPort: 28017
     selector:
-      app: easytravel-mongodb
-    type: ClusterIP
-- apiVersion: v1
-  kind: Service
+      app: "mongodb"
+      deploymentconfig: "mongodb"
+  status:
+    loadBalancer: {}
+- apiVersion: "v1"
+  kind: "Route"
   metadata:
-    name: easytravel-backend
+    name: "mongodb"
+  spec:
+    port:
+      targetPort: 27017
+    to:
+      kind: "Service"
+      name: "mongodb"
+- apiVersion: "v1"
+  kind: "DeploymentConfig"
+  metadata:
     labels:
-      app: easytravel-backend
+      app: "backend"
+    name: "backend"
+  spec:
+    replicas: "1"
+    selector:
+      app: "backend"
+      deploymentconfig: "backend"
+    strategy:
+      resources: {}
+    template:
+      metadata:
+        labels:
+          app: "backend"
+          deploymentconfig: "backend"
+      spec:
+        containers:
+        - name: "backend"
+          image: "docker.io/dynatrace/easytravel-backend"
+          env:
+          - name: "ET_DATABASE_LOCATION"
+            value: "mongodb:27017"
+          ports:
+          - containerPort: 8080
+            protocol: "TCP"
+          readinessProbe:
+            httpGet:
+              path: "/"
+              port: 8080
+            initialDelaySeconds: 15
+            timeoutSeconds: 5
+          resources: {}
+  status: {}
+- apiVersion: "v1"
+  kind: "Service"
+  metadata:
+    labels:
+      app: "backend"
+    name: "backend"
   spec:
     ports:
-    - name: 8080-tcp
+    - name: "8080-tcp"
       port: 8080
-      protocol: TCP
+      protocol: "TCP"
       targetPort: 8080
     selector:
-      app: easytravel-backend
-    type: ClusterIP
-- apiVersion: v1
-  kind: Service
+      app: "backend"
+      deploymentconfig: "backend"
+  status:
+    loadBalancer: {}
+- apiVersion: "v1"
+  kind: "Route"
   metadata:
-    name: easytravel-frontend
+    name: "backend"
+  spec:
+    port:
+      targetPort: 8080
+    to:
+      kind: "Service"
+      name: "backend"
+- apiVersion: "v1"
+  kind: "DeploymentConfig"
+  metadata:
     labels:
-      app: easytravel-frontend
+      app: "frontend"
+    name: "frontend"
+  spec:
+    replicas: "1"
+    selector:
+      app: "frontend"
+      deploymentconfig: "frontend"
+    strategy:
+      resources: {}
+    template:
+      metadata:
+        labels:
+          app: "frontend"
+          deploymentconfig: "frontend"
+      spec:
+        containers:
+        - name: "frontend"
+          image: "docker.io/dynatrace/easytravel-frontend"
+          env:
+          - name: "ET_BACKEND_URL"
+            value: "http://backend:8080"
+          ports:
+          - containerPort: 8080
+            protocol: "TCP"
+          readinessProbe:
+            httpGet:
+              path: "/"
+              port: 8080
+            initialDelaySeconds: 15
+            timeoutSeconds: 5
+          resources: {}
+  status: {}
+- apiVersion: "v1"
+  kind: "Service"
+  metadata:
+    labels:
+      app: "frontend"
+    name: "frontend"
   spec:
     ports:
-    - name: 8080-tcp
+    - name: "8080-tcp"
       port: 8080
-      protocol: TCP
+      protocol: "TCP"
       targetPort: 8080
     selector:
-      app: easytravel-frontend
-    type: ClusterIP
-- apiVersion: v1
-  kind: Service
+      app: "frontend"
+      deploymentconfig: "frontend"
+  status:
+    loadBalancer: {}
+- apiVersion: "v1"
+  kind: "Route"
   metadata:
-    name: easytravel-www
+    name: "frontend"
+  spec:
+    port:
+      targetPort: 8080
+    to:
+      kind: "Service"
+      name: "frontend"
+- apiVersion: "v1"
+  kind: "DeploymentConfig"
+  metadata:
     labels:
-      app: easytravel-www
+      app: "www"
+    name: "www"
+  spec:
+    replicas: "1"
+    selector:
+      app: "www"
+      deploymentconfig: "www"
+    strategy:
+      resources: {}
+    template:
+      metadata:
+        labels:
+          app: "www"
+          deploymentconfig: "www"
+      spec:
+        containers:
+        - name: "www"
+          image: "docker.io/dynatrace/easytravel-nginx"
+          env:
+          - name: "ET_FRONTEND_LOCATION"
+            value: "frontend:8080"
+          - name: "ET_BACKEND_LOCATION"
+            value: "backend:8080"
+          ports:
+          - containerPort: 80
+            protocol: "TCP"
+          - containerPort: 8080
+            protocol: "TCP"
+          readinessProbe:
+            httpGet:
+              path: "/"
+              port: 80
+            initialDelaySeconds: 15
+            timeoutSeconds: 5
+          resources: {}
+  status: {}
+- apiVersion: "v1"
+  kind: "Service"
+  metadata:
+    labels:
+      app: "www"
+    name: "www"
   spec:
     ports:
-    - name: 80-tcp
+    - name: "80-tcp"
       port: 80
-      protocol: TCP
+      protocol: "TCP"
       targetPort: 80
-    - name: 8080-tcp
+    - name: "8080-tcp"
       port: 8080
-      protocol: TCP
+      protocol: "TCP"
       targetPort: 8080
     selector:
-      app: easytravel-www
-    type: ClusterIP
+      app: "www"
+      deploymentconfig: "www"
+  status:
+    loadBalancer: {}
+- apiVersion: "v1"
+  kind: "Route"
+  metadata:
+    name: "www"
+  spec:
+    port:
+      targetPort: 80
+    to:
+      kind: "Service"
+      name: "www"

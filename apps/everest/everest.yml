@@ -1,7 +1,11 @@
+---
 apiVersion: "v1"
-kind: "List"
-metadata: {}
-items:
+kind: "Template"
+metadata:
+  name: "everest"
+  annotations:
+    description: "A well-designed monolithic application by Arun Gupta."
+objects:
 - apiVersion: "v1"
   kind: "DeploymentConfig"
   metadata:
@@ -22,11 +26,17 @@ items:
           deploymentconfig: "everest"
       spec:
         containers:
-        - image: "docker.io/metmajer/everest"
-          name: "everest"
+        - name: "everest"
+          image: "docker.io/metmajer/everest"
           ports:
           - containerPort: 8080
             protocol: "TCP"
+          readinessProbe:
+            httpGet:
+              path: "/everest-1.0"
+              port: 8080
+            initialDelaySeconds: 15
+            timeoutSeconds: 5
           resources: {}
   status: {}
 - apiVersion: v1
