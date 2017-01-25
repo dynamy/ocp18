@@ -8,13 +8,7 @@ The following combination of `Vagrantfile`, `provision.sh` and `up.sh` files all
 
 ## Deployment
 
-The following `vagrant up` command will spawn a `ubuntu/xenial64` Vagrant box from vagrantbox.es.
-
-```
-vagrant up
-```
-
-Once the virtual machine has been launched, run `vagrant ssh` on your terminal to connect into the virtual machine via SSH.
+Using the `vagrant up` command, Vagrant will spawn a `ubuntu/xenial64` Vagrant box from vagrantbox.es. Once the virtual machine has been launched, run `vagrant ssh` on your terminal to connect into the virtual machine via SSH.
 
 When inside the virtual machine, you'll need to determine the machine's public IP address, e.g. via `ifconfig`, and take a note of it. You'll have to provide it to OpenShift so that it can bind to this address when you start it using the `up.sh` script below. Let's assume yor virtual machine publicly resolves to `1.2.3.4`.
 
@@ -34,7 +28,7 @@ export DT_TENANT_TOKEN="..."
 
 ## Connecting
 
-Once OpenShift is up and running, you can connect to the cluster using the `oc login` command via:
+Once OpenShift is up and running, you can connect to OpenShift from both inside and outside the virtual machine using the `oc login` command:
 
 ```
 oc login https://1.2.3.4:8443 -u developer -p developer --insecure-skip-tls-verify
