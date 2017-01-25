@@ -24,8 +24,8 @@ sudo systemctl restart docker
 
 # Install oc CLI
 cd ~
-wget https://github.com/openshift/origin/releases/download/v1.5.0-alpha.1/openshift-origin-client-tools-v1.5.0-alpha.1.71d3fa9-linux-64bit.tar.gz
-tar xvzf openshift-origin-client-tools-v1.5.0-alpha.1.71d3fa9-linux-64bit.tar.gz
+wget https://github.com/openshift/origin/releases/download/v1.4.1/openshift-origin-client-tools-v1.4.1-3f9807a-linux-64bit.tar.gz
+tar xvzf openshift-origin-client-tools-v1.4.1-3f9807a-linux-64bit.tar.gz
 cd openshift*
 sudo mv oc /usr/bin
 sudo chown root:root /usr/bin/oc
