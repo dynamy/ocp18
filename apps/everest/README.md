@@ -15,7 +15,7 @@ export OS_PROJECT=everest
 oc login https://${OS_MASTER_IP}:8443 -u developer -p developer --insecure-skip-tls-verify
 
 oc new-project ${OS_PROJECT}
-oc create -f ${OS_PROJECT}.yml
+oc new-app ${OS_PROJECT}.yml
 ```
 
 ### Windows
@@ -28,5 +28,5 @@ set OS_PROJECT=everest
 oc login https://${OS_MASTER_IP}:8443 -u developer -p developer --insecure-skip-tls-verify
 
 oc new-project %OS_PROJECT%
-oc create -f %OS_PROJECT%.yml
+oc new-app %OS_PROJECT%.yml
 ```

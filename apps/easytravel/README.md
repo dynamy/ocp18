@@ -38,7 +38,7 @@ set OS_PROJECT=easytravel
 oc login https://${OS_MASTER_IP}:8443 -u developer -p developer --insecure-skip-tls-verify
 
 oc new-project %OS_PROJECT%
-oc create -f %OS_PROJECT%.yml
+oc new-app %OS_PROJECT%.yml
 ```
 
 Instead of using the `easytravel.yml` application template, you may also use `easytravel-with-loadgen.yml`, which adds the easyTravel loadgen component to the application, and by default, enables a variety of problem patterns for your convenience.
