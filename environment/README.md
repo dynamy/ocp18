@@ -10,26 +10,47 @@ The following combination of `Vagrantfile`, `provision.sh` and `up.sh` files all
 
 Using the `vagrant up` command, Vagrant will spawn a `ubuntu/xenial64` Vagrant box from vagrantbox.es. Once the virtual machine has been launched, run `vagrant ssh` on your terminal to connect into the virtual machine via SSH.
 
-When inside the virtual machine, you'll need to determine the machine's public IP address, e.g. via `ifconfig`, and take a note of it. You'll have to provide it to OpenShift so that it can bind to this address when you start it using the `up.sh` script below. Let's assume yor virtual machine publicly resolves to `1.2.3.4`.
+### 1. Obtain your Public IP and Hostname
 
-In addition to running OpenShift, you'll want to have your demo environment equipped with Dynatrace OneAgent for full-stack monitoring. You can do so by applying the following environment variables, where `DT_TENANT_ID` and `DT_TENANT_TOKEN` are to be taken from your Dynatrace installation. If any of these is omitted, an installation of Dynatrace OneAgent will not be pursued.
+Inside the virtual machine, determine the machine's public IP address, e.g. via `ifconfig`, and take a note of it. You'll have to provide it when you invoke the `up.sh` script below, so that OpenShift can bind to it. Let's assume yor virtual machine publicly resolves to `1.2.3.4`:
+
+```
+export OS_MASTER_IP=1.2.3.4
+./up.sh ${OS_MASTER_IP}
+```
+
+If you run the demo environment in a public cloud environment, such as AWS EC2 or GCE, you'll have to provide both the public IP and public hostname from your cloud backend, since otherwise routing will not work:
+
+```
+export OS_MASTER_IP=1.2.3.4
+export OS_PUBLIC_HOSTNAME=mymachine.aws.amazon.com
+./up.sh ${OS_MASTER_IP} ${OS_PUBLIC_HOSTNAME}
+```
+
+In addition to running OpenShift, you'll want to have your demo environment equipped with Dynatrace OneAgent for full-stack monitoring. You can do so by applying the following environment variables, before you invoke `up.sh`, where `DT_TENANT_ID` and `DT_TENANT_TOKEN` are to be taken from your Dynatrace installation and `DT_CLUSTER` is optional.
 
 ![OneAgent Installation](https://github.com/dynatrace-innovationlab/openshift-demo-environment/raw/images/oneagent-installation.png)
-
-Finally, you can start OpenShift and install Dynatrace OneAgent via `up.sh` like so.
 
 ```
 export DT_CLUSTER="live.dynatrace.com"
 export DT_TENANT_ID="..."
 export DT_TENANT_TOKEN="..."
-
-./up.sh "1.2.3.4"
 ```
+
+If you want to speed up the deployment of your sample applications, you can do so by having your OpenShift Docker registry pre-populated with the relevant Docker images by providing `OS_PULL_DOCKER_IMAGES`:
+
+```
+export OS_PULL_DOCKER_IMAGES=true
+``
 
 ## Connecting
 
-Once OpenShift is up and running, you can connect to OpenShift from both inside and outside the virtual machine using the `oc login` command:
+Once OpenShift is up and running, you can connect to OpenShift from both inside and outside the virtual machine using the `oc login` command or by accessing the OpenShift Web UI:
 
 ```
 oc login https://1.2.3.4:8443 -u developer -p developer --insecure-skip-tls-verify
 ```
+
+![OpenShift Web UI: Login](https://github.com/dynatrace-innovationlab/openshift-demo-environment/raw/images/openshift-web-ui-login.png)
+
+Where username and password are 'developer' and 'developer', respectively.

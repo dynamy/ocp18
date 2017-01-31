@@ -562,9 +562,9 @@ objects:
 parameters:
 - name: "OS_MASTER_IP"
   description: "The IP address of your OpenShift cluster's master"
-  value: ""
+  value: "OS_MASTER_IP"
   required: true
 - name: "OS_PROJECT"
   description: "The name of the project"
-  value: "helloworld-msa"
+  value: "OS_PROJECT"
   required: true
