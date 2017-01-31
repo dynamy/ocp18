@@ -15,14 +15,14 @@ sudo chown "$USER:$USER" ~/.kube/config
 # Install Dynatrace OneAgent
 DT_CLUSTER="${DT_CLUSTER:-live.dynatrace.com}"
 if [ -n "$DT_TENANT_ID" ] && [ -n "$DT_TENANT_TOKEN" ]; then
-  wget -O Dynatrace-OneAgent.sh "https://${DT_TENANT_ID}.${DT_CLUSTER}/installer/agent/unix/latest/${DT_TENANT_TOKEN}"
+  wget -q -O Dynatrace-OneAgent.sh "https://${DT_TENANT_ID}.${DT_CLUSTER}/installer/agent/unix/latest/${DT_TENANT_TOKEN}"
   sudo /bin/sh Dynatrace-OneAgent.sh APP_LOG_CONTENT_ACCESS=1
 fi
 
 # Install OpenShift demo project
 cd ~
-wget https://github.com/dynatrace-innovationlab/openshift-demo-environment/archive/master.zip
-unzip master.zip
+wget -q -O master.zip https://github.com/dynatrace-innovationlab/openshift-demo-environment/archive/master.zip
+unzip -o master.zip
 cd openshift-demo-environment-master/apps
 
 # Prepare OpenShift 'everest' application
