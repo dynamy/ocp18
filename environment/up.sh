@@ -28,7 +28,7 @@ cd openshift-demo-environment-master/apps
 # Prepare OpenShift 'everest' application
 OS_PROJECT=everest
 pushd ${OS_PROJECT}
-oc login https://${OS_MASTER_IP}:8443 -u developer -p developer --insecure-skip-tls-verify
+oc login -u developer -p developer --insecure-skip-tls-verify
 oc new-project ${OS_PROJECT} --description="A well-designed monolithic application by Arun Gupta."
 oc create -f ${OS_PROJECT}.yml
 popd
@@ -40,7 +40,7 @@ fi
 # Prepare OpenShift 'helloworld-msa' application
 OS_PROJECT=helloworld-msa
 pushd ${OS_PROJECT}
-oc login https://${OS_MASTER_IP}:8443 -u developer -p developer --insecure-skip-tls-verify
+oc login -u developer -p developer --insecure-skip-tls-verify
 oc new-project ${OS_PROJECT} --description="The Red Hat HelloWorld MSA (Microservice Architecture)."
 oc policy add-role-to-user admin system:serviceaccount:${OS_PROJECT}:turbine
 sed -i "s/value: \"OS_MASTER_IP\"/value: \"$OS_MASTER_IP\"/" ${OS_PROJECT}.yml
@@ -62,9 +62,9 @@ fi
 # Install OpenShift 'easytravel' application template
 OS_PROJECT=easytravel
 pushd ${OS_PROJECT}
-oc login https://${OS_MASTER_IP}:8443 -u system:admin --insecure-skip-tls-verify
+oc login -u system:admin --insecure-skip-tls-verify
 oc adm policy add-scc-to-user anyuid -z default -n ${OS_PROJECT}
-oc login https://${OS_MASTER_IP}:8443 -u developer -p developer --insecure-skip-tls-verify
+oc login -u developer -p developer --insecure-skip-tls-verify
 oc new-project ${OS_PROJECT} --description="The Dynatrace easyTravel sample application."
 oc create -f ${OS_PROJECT}.yml
 oc create -f ${OS_PROJECT}-with-loadgen.yml
