@@ -31,7 +31,7 @@ objects:
       spec:
         containers:
         - name: "turbine-server"
-          image: "metmajer/turbine-server:1.0.26.1"
+          image: "docker.io/metmajer/turbine-server:1.0.26.1"
           env:
           - name: "KUBERNETES_MASTER"
             value: "https://${OS_MASTER_IP}:8443"
@@ -103,7 +103,7 @@ objects:
       spec:
         containers:
         - name: "hystrix-dashboard"
-          image: "metmajer/hystrix-dashboard:1.0.26.1"
+          image: "docker.io/metmajer/hystrix-dashboard:1.0.26.1"
           ports:
           - containerPort: 8080
             protocol: "TCP"
