@@ -41,7 +41,7 @@ If you want to speed up the deployment of your sample applications, you can do s
 
 ```
 export OS_PULL_DOCKER_IMAGES=true
-``
+```
 
 ## Connecting
 
