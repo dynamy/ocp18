@@ -30,7 +30,8 @@ cd openshift-demo-environment-master/apps
 OS_PROJECT=everest
 pushd ${OS_PROJECT}
 oc login -u developer -p developer --insecure-skip-tls-verify
-oc new-project ${OS_PROJECT} --description="A well-designed monolithic application by Arun Gupta."
+oc new-project ${OS_PROJECT} --description="A well-designed monolithic application by Arun Gupta." || true
+oc project ${OS_PROJECT}
 oc create -f ${OS_PROJECT}.yml
 popd
 
@@ -42,10 +43,12 @@ fi
 OS_PROJECT=helloworld-msa
 pushd ${OS_PROJECT}
 oc login -u developer -p developer --insecure-skip-tls-verify
-oc new-project ${OS_PROJECT} --description="The Red Hat HelloWorld MSA (Microservice Architecture)."
+oc new-project ${OS_PROJECT} --description="The Red Hat HelloWorld MSA (Microservice Architecture)." || true
+oc project ${OS_PROJECT}
 oc policy add-role-to-user admin system:serviceaccount:${OS_PROJECT}:turbine
-sed -i "s/value: \"OS_MASTER_IP\"/value: \"$OS_MASTER_IP\"/" ${OS_PROJECT}.yml
-sed -i "s/value: \"OS_PROJECT\"/value: \"$OS_PROJECT\"/" ${OS_PROJECT}.yml
+sed -i.bak "s/value: \"OS_PROJECT\"/value: \"$OS_PROJECT\"/" ${OS_PROJECT}.yml
+sed -i.bak "s/value: \"OS_MASTER_IP\"/value: \"$OS_MASTER_IP\"/" ${OS_PROJECT}.yml
+sed -i.bak "s/value: \"OS_PUBLIC_HOSTNAME\"/value: \"$OS_PUBLIC_HOSTNAME\"/" ${OS_PROJECT}.yml
 oc create -f ${OS_PROJECT}.yml
 popd
 
@@ -66,7 +69,8 @@ pushd ${OS_PROJECT}
 oc login -u system:admin --insecure-skip-tls-verify
 oc adm policy add-scc-to-user anyuid -z default -n ${OS_PROJECT}
 oc login -u developer -p developer --insecure-skip-tls-verify
-oc new-project ${OS_PROJECT} --description="The Dynatrace easyTravel sample application."
+oc new-project ${OS_PROJECT} --description="The Dynatrace easyTravel sample application." || true
+oc project ${OS_PROJECT}
 oc create -f ${OS_PROJECT}.yml
 oc create -f ${OS_PROJECT}-with-loadgen.yml
 popd

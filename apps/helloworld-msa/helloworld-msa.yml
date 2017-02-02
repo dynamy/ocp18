@@ -34,7 +34,7 @@ objects:
           image: "docker.io/metmajer/turbine-server:1.0.26.1"
           env:
           - name: "KUBERNETES_MASTER"
-            value: "https://${OS_MASTER_IP}:8443"
+            value: "https://${OS_PUBLIC_HOSTNAME}:8443"
           - name: "KUBERNETES_NAMESPACE"
             value: "${OS_PROJECT}"
           ports:
@@ -560,11 +560,15 @@ objects:
       kind: "Service"
       name: "ola"
 parameters:
+- name: "OS_PROJECT"
+  description: "The name of the project"
+  value: "OS_PROJECT"
+  required: true
 - name: "OS_MASTER_IP"
   description: "The IP address of your OpenShift cluster's master"
   value: "OS_MASTER_IP"
   required: true
-- name: "OS_PROJECT"
-  description: "The name of the project"
-  value: "OS_PROJECT"
+- name: "OS_PUBLIC_HOSTNAME"
+  description: "The public hostname of your OpenShift cluster's master"
+  value: "OS_PUBLIC_HOSTNAME"
   required: true
