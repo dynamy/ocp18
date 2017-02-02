@@ -1,4 +1,6 @@
 #!/bin/bash -e
+OS_OSCP="${OS_OSCP:-true}"
+
 sudo apt-get update
 sudo apt-get install -y apt-transport-https ca-certificates
 sudo apt-key adv \
@@ -24,8 +26,16 @@ sudo systemctl restart docker
 
 # Install oc CLI
 cd ~
-wget https://github.com/openshift/origin/releases/download/v1.4.1/openshift-origin-client-tools-v1.4.1-3f9807a-linux-64bit.tar.gz
-tar xvzf openshift-origin-client-tools-v1.4.1-3f9807a-linux-64bit.tar.gz
-cd openshift*
+if "${OS_OSCP}" -eq "true"; then
+  # OpenShift Container Platform
+  wget -q -O oc-linux.tar.gz https://s3.amazonaws.com/oso-preview-docker-registry/client-tools/3.4/oc-3.4.0.39-1-linux.tar.gz
+  tar xvzf oc-linux.tar.gz
+else
+  # OpenShift Origin
+  wget -q -O oc-linux.tar.gz https://github.com/openshift/origin/releases/download/v1.4.1/openshift-origin-client-tools-v1.4.1-3f9807a-linux-64bit.tar.gz
+  tar xvzf oc-linux.tar.gz
+  mv openshift-origin-client-tools-v1.4.1+3f9807a-linux-64bit/oc .
+fi
+
+sudo chown root:root oc
 sudo mv oc /usr/bin
-sudo chown root:root /usr/bin/oc
