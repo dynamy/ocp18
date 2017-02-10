@@ -252,6 +252,9 @@ objects:
         containers:
         - name: "api-gateway"
           image: "docker.io/metmajer/msa-api-gateway"
+          env:
+          - name: "AB_ENABLED"
+            value: "jolokia"
           ports:
           - containerPort: 9779
             protocol: "TCP"
@@ -321,6 +324,9 @@ objects:
         containers:
         - name: "aloha"
           image: "docker.io/metmajer/msa-aloha"
+          env:
+          - name: "AB_ENABLED"
+            value: "jolokia"
           ports:
           - containerPort: 8080
             protocol: "TCP"
@@ -514,6 +520,9 @@ objects:
         containers:
         - name: "ola"
           image: "docker.io/metmajer/msa-ola"
+          env:
+          - name: "AB_ENABLED"
+            value: "jolokia"
           ports:
           - containerPort: 8778
             protocol: "TCP"
