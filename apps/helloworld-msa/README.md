@@ -48,7 +48,7 @@ You can now access the application via the exposed frontend's route `http://fron
 
 ## Manual Deployments
 
-Here's how to deploy the application on any OpenShift cluster. In the following examples, `OS_MASTER_IP` refers to the IP of your OpenShift cluster's master node, assuming `1.2.3.4`. Once deployed, you can access the everest application via the exposed route `http://frontend-helloworld-msa.1.2.3.4.xip.io/`.
+Here's how to deploy the application on any OpenShift cluster. In the following examples, `OS_MASTER_IP` refers to the IP of your OpenShift cluster's master node, assuming `1.2.3.4`. Once deployed, you can access the frontend application via the exposed route `http://frontend-helloworld-msa.1.2.3.4.xip.io/`.
 
 ### Linux / MacOS
 
