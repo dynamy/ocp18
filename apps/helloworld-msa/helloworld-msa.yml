@@ -197,6 +197,8 @@ objects:
             value: "http://hystrix-dashboard-${OS_PROJECT}.${OS_MASTER_IP}.xip.io"
           - name: "TURBINESERVERURL"
             value: "http://turbine-server-${OS_PROJECT}.${OS_MASTER_IP}.xip.io"
+          - name: "ENABLE_ZIPKIN"
+            value: "true"
           ports:
           - containerPort: 8080
             protocol: "TCP"
