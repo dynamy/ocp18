@@ -36,7 +36,9 @@ objects:
           - name: "KUBERNETES_MASTER"
             value: "https://${OS_PUBLIC_HOSTNAME}:8443"
           - name: "KUBERNETES_NAMESPACE"
-            value: "${OS_PROJECT}"
+            valueFrom:
+              fieldRef:
+                fieldPath: "metadata.namespace"
           ports:
           - containerPort: 9779
             protocol: "TCP"
