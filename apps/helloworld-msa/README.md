@@ -46,6 +46,20 @@ Where username and password are 'developer' and 'developer', respectively.
 
 You can now access the application via the exposed frontend's route `http://frontend-helloworld-msa.1.2.3.4.xip.io/`, where `1.2.3.4` refers to your cluster's (actually the cluster master's) IP address.
 
+## Automating Load
+
+### Linux / MacOS
+
+The following example sends load to the `api-gateway` component, who'll relay all requests the each microservice in the backend. Assuming the API gateway to be accessible via `http://api-gateway-helloworld-msa.1.2.3.4.xip.io`:
+
+```
+while true; do
+  curl http://api-gateway-helloworld-msa.1.2.3.4.xip.io/api;
+  echo "\n";
+  sleep 1;
+done
+```
+
 ## Manual Deployments
 
 Here's how to deploy the application on any OpenShift cluster. In the following examples, `OS_MASTER_IP` refers to the IP of your OpenShift cluster's master node, assuming `1.2.3.4`. Once deployed, you can access the frontend application via the exposed route `http://frontend-helloworld-msa.1.2.3.4.xip.io/`.
