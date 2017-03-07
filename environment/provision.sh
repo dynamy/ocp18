@@ -15,7 +15,7 @@ sudo apt-get install -y socat unzip
 echo "deb https://apt.dockerproject.org/repo ubuntu-xenial main" | sudo tee /etc/apt/sources.list.d/docker.list
 sudo apt-get update
 sudo apt-get install -y linux-image-extra-$(uname -r) linux-image-extra-virtual
-sudo apt-get install -y docker-engine
+sudo apt-get install -y docker-engine=1.12.3-0~xenial
 sudo service docker start
 
 # Install docker: prepare for OpenShift
