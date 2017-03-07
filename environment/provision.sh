@@ -1,5 +1,5 @@
 #!/bin/bash -e
-OS_OSCP="${OS_OSCP:-true}"
+OS_OSCP="${OS_OSCP:-false}"
 
 sudo apt-get update
 sudo apt-get install -y apt-transport-https ca-certificates
