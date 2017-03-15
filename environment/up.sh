@@ -1,6 +1,6 @@
 #!/bin/bash -e
-OS_MASTER_IP="$1"
-OS_PUBLIC_HOSTNAME="${2:-$OS_MASTER_IP}"
+export OS_MASTER_IP="$1"
+export OS_PUBLIC_HOSTNAME="${2:-$OS_MASTER_IP}"
 
 if [ -z "${OS_MASTER_IP}" ]; then
   echo "The OpenShift Master IP must be provided as the first argument to up.sh. Example: ./up.sh 1.2.3.4"
