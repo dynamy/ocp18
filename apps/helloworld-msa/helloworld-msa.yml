@@ -31,20 +31,14 @@ objects:
       spec:
         containers:
         - name: "turbine-server"
-          image: "docker.io/metmajer/turbine-server:1.0.26.1"
+          image: "fabric8/turbine-server:1.0.28"
           env:
-          - name: "KUBERNETES_MASTER"
-            value: "https://${OS_PUBLIC_HOSTNAME}:8443"
           - name: "KUBERNETES_NAMESPACE"
             valueFrom:
               fieldRef:
                 fieldPath: "metadata.namespace"
           ports:
-          - containerPort: 9779
-            protocol: "TCP"
           - containerPort: 8080
-            protocol: "TCP"
-          - containerPort: 8778
             protocol: "TCP"
           resources: {}
         serviceAccountName: "turbine"
@@ -61,14 +55,6 @@ objects:
       port: 8080
       protocol: "TCP"
       targetPort: 8080
-    - name: "8778-tcp"
-      port: 8778
-      protocol: "TCP"
-      targetPort: 8778
-    - name: "9779-tcp"
-      port: 9779
-      protocol: "TCP"
-      targetPort: 9779
     selector:
       app: "turbine-server"
       deploymentconfig: "turbine-server"
@@ -84,6 +70,10 @@ objects:
     to:
       kind: "Service"
       name: "turbine-server"
+- apiVersion: "v1"
+  kind: "ServiceAccount"
+  metadata:
+    name: "ribbon"
 - apiVersion: "v1"
   kind: "DeploymentConfig"
   metadata:
@@ -105,15 +95,12 @@ objects:
       spec:
         containers:
         - name: "hystrix-dashboard"
-          image: "docker.io/metmajer/hystrix-dashboard:1.0.26.1"
+          image: "fabric8/hystrix-dashboard:1.0.28"
           ports:
           - containerPort: 8080
             protocol: "TCP"
-          - containerPort: 8778
-            protocol: "TCP"
-          - containerPort: 9779
-            protocol: "TCP"
           resources: {}
+        serviceAccountName: "turbine"
   status: {}
 - apiVersion: "v1"
   kind: "Service"
@@ -127,14 +114,6 @@ objects:
       port: 8080
       protocol: "TCP"
       targetPort: 8080
-    - name: "8778-tcp"
-      port: 8778
-      protocol: "TCP"
-      targetPort: 8778
-    - name: "9779-tcp"
-      port: 9779
-      protocol: "TCP"
-      targetPort: 9779
     selector:
       app: "hystrix-dashboard"
       deploymentconfig: "hystrix-dashboard"
@@ -173,32 +152,14 @@ objects:
       spec:
         containers:
         - name: "frontend"
-          image: "docker.io/metmajer/msa-frontend"
+          image: "metmajer/redhatmsa-frontend"
           env:
-          - name: "APIGATEWAYURL"
-            value: "http://api-gateway-${OS_PROJECT}.${OS_MASTER_IP}.xip.io/api"
-          - name: "ALOHAURL"
-            value: "http://aloha-${OS_PROJECT}.${OS_MASTER_IP}.xip.io/api/aloha"
-          - name: "ALOHCHAINAURL"
-            value: "http://aloha-${OS_PROJECT}.${OS_MASTER_IP}.xip.io/api/aloha-chaining"
-          - name: "BONJOURCHAINURL"
-            value: "http://bonjour-${OS_PROJECT}.${OS_MASTER_IP}.xip.io/api/bonjour-chaining"
-          - name: "BONJOURURL"
-            value: "http://bonjour-${OS_PROJECT}.${OS_MASTER_IP}.xip.io/api/bonjour"
-          - name: "HOLAURL"
-            value: "http://hola-${OS_PROJECT}.${OS_MASTER_IP}.xip.io/api/hola"
-          - name: "HOLACHAINURL"
-            value: "http://hola-${OS_PROJECT}.${OS_MASTER_IP}.xip.io/api/hola-chaining"
-          - name: "OLAURL"
-            value: "http://ola-${OS_PROJECT}.${OS_MASTER_IP}.xip.io/api/ola"
-          - name: "OLACHAINURL"
-            value: "http://ola-${OS_PROJECT}.${OS_MASTER_IP}.xip.io/api/ola-chaining"
+          - name: "OS_PROJECT"
+            value: "${OS_PROJECT}"
+          - name: "OS_SUBDOMAIN"
+            value: "${OS_SUBDOMAIN}"
           - name: "ENABLE_HYSTRIX"
             value: "true"
-          - name: "HYSTRIXDASHBOARDURL"
-            value: "http://hystrix-dashboard-${OS_PROJECT}.${OS_MASTER_IP}.xip.io"
-          - name: "TURBINESERVERURL"
-            value: "http://turbine-server-${OS_PROJECT}.${OS_MASTER_IP}.xip.io"
           - name: "ENABLE_ZIPKIN"
             value: "true"
           ports:
@@ -255,16 +216,16 @@ objects:
       spec:
         containers:
         - name: "api-gateway"
-          image: "docker.io/metmajer/msa-api-gateway"
+          image: "metmajer/redhatmsa-api-gateway"
           env:
           - name: "AB_ENABLED"
             value: "jolokia"
           ports:
-          - containerPort: 9779
-            protocol: "TCP"
           - containerPort: 8080
             protocol: "TCP"
           - containerPort: 8778
+            protocol: "TCP"
+          - containerPort: 9779
             protocol: "TCP"
           resources: {}
   status: {}
@@ -327,7 +288,7 @@ objects:
       spec:
         containers:
         - name: "aloha"
-          image: "docker.io/metmajer/msa-aloha"
+          image: "metmajer/redhatmsa-aloha"
           env:
           - name: "AB_ENABLED"
             value: "jolokia"
@@ -399,7 +360,7 @@ objects:
       spec:
         containers:
         - name: "bonjour"
-          image: "docker.io/metmajer/msa-bonjour"
+          image: "metmajer/redhatmsa-bonjour"
           ports:
           - containerPort: 8080
             protocol: "TCP"
@@ -454,13 +415,13 @@ objects:
       spec:
         containers:
         - name: "hola"
-          image: "docker.io/metmajer/msa-hola"
+          image: "metmajer/redhatmsa-hola"
           ports:
-          - containerPort: 9779
-            protocol: "TCP"
           - containerPort: 8080
             protocol: "TCP"
           - containerPort: 8778
+            protocol: "TCP"
+          - containerPort: 9779
             protocol: "TCP"
           resources: {}
   status: {}
@@ -523,16 +484,16 @@ objects:
       spec:
         containers:
         - name: "ola"
-          image: "docker.io/metmajer/msa-ola"
+          image: "metmajer/redhatmsa-ola"
           env:
           - name: "AB_ENABLED"
             value: "jolokia"
           ports:
+          - containerPort: 8080
+            protocol: "TCP"
           - containerPort: 8778
             protocol: "TCP"
           - containerPort: 9779
-            protocol: "TCP"
-          - containerPort: 8080
             protocol: "TCP"
           resources: {}
   status: {}
@@ -574,14 +535,10 @@ objects:
       name: "ola"
 parameters:
 - name: "OS_PROJECT"
-  description: "The name of the project"
+  description: "The name of the project."
   value: "OS_PROJECT"
   required: true
-- name: "OS_MASTER_IP"
-  description: "The IP address of your OpenShift cluster's master"
-  value: "OS_MASTER_IP"
-  required: true
-- name: "OS_PUBLIC_HOSTNAME"
-  description: "The public hostname of your OpenShift cluster's master"
-  value: "OS_PUBLIC_HOSTNAME"
+- name: "OS_SUBDOMAIN"
+  description: "The OpenShift master's domain for server routes."
+  value: "OS_SUBDOMAIN"
   required: true
