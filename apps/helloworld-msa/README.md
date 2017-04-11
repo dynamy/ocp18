@@ -44,17 +44,17 @@ Where username and password are 'developer' and 'developer', respectively.
 
 ![OpenShift Web UI: Validate Application](https://github.com/dynatrace-innovationlab/openshift-demo-environment/raw/images/openshift-web-ui-helloworld-msa-12.png)
 
-You can now access the application via the exposed frontend's route `http://frontend-helloworld-msa.1.2.3.4.xip.io/`, where `1.2.3.4` refers to your cluster's (actually the cluster master's) IP address.
+You can now access the application via the exposed frontend's route `http://frontend-helloworld-msa.1.2.3.4.nip.io/`, where `1.2.3.4` refers to your cluster's (actually the cluster master's) IP address.
 
 ## Automating Load
 
 ### Linux / MacOS
 
-The following example sends load to the `api-gateway` component, who'll relay all requests the each microservice in the backend. Assuming the API gateway to be accessible via `http://api-gateway-helloworld-msa.1.2.3.4.xip.io`:
+The following example sends load to the `api-gateway` component, who'll relay all requests the each microservice in the backend. Assuming the API gateway to be accessible via `http://api-gateway-helloworld-msa.1.2.3.4.nip.io`:
 
 ```
 while true; do
-  curl http://api-gateway-helloworld-msa.1.2.3.4.xip.io/api;
+  curl http://api-gateway-helloworld-msa.1.2.3.4.nip.io/api;
   echo "\n";
   sleep 1;
 done
@@ -62,32 +62,32 @@ done
 
 ## Manual Deployments
 
-Here's how to deploy the application on any OpenShift cluster. In the following examples, `OS_MASTER_IP` refers to the IP of your OpenShift cluster's master node, assuming `1.2.3.4`. Once deployed, you can access the frontend application via the exposed route `http://frontend-helloworld-msa.1.2.3.4.xip.io/`.
+Here's how to deploy the application on any OpenShift cluster. In the following examples, `OS_MASTER_IP` refers to the IP of your OpenShift cluster's master node, assuming `1.2.3.4`. Once deployed, you can access the frontend application via the exposed route `http://frontend-helloworld-msa.1.2.3.4.nip.io/`.
 
 ### Linux / MacOS
 
 ```
-export OS_MASTER_IP=1.2.3.4
 export OS_PROJECT=helloworld-msa
+export OS_MASTER_IP=1.2.3.4
 
 oc login https://${OS_MASTER_IP}:8443 -u developer -p developer --insecure-skip-tls-verify
 
 oc new-project ${OS_PROJECT}
 oc policy add-role-to-user admin system:serviceaccount:${OS_PROJECT}:turbine
-oc process -f ${OS_PROJECT}.yml -v OS_MASTER_IP=${OS_MASTER_IP} -v OS_PROJECT=${OS_PROJECT} | oc apply -f -
+oc process -f ${OS_PROJECT}.yml -v OS_PROJECT=${OS_PROJECT} -v OS_SUBDOMAIN=${OS_MASTER_IP}.nip.io | oc apply -f -
 ```
 
 ### Windows
 
 ```
 @echo off
-set OS_MASTER_IP=1.2.3.4
 set OS_PROJECT=helloworld-msa
+set OS_MASTER_IP=1.2.3.4
  
 oc login https://%OS_MASTER_IP%:8443 -u developer -p developer --insecure-skip-tls-verify
  
 oc new-project %OS_PROJECT%
 oc policy add-role-to-user admin system:serviceaccount:%OS_PROJECT%:turbine
-oc process -f %OS_PROJECT%.yml -v OS_MASTER_IP=%OS_MASTER_IP% -v OS_PROJECT=%OS_PROJECT% > %OS_PROJECT%.processed.yml
+oc process -f %OS_PROJECT%.yml -v OS_PROJECT=%OS_PROJECT% -v OS_MASTER_IP=%OS_MASTER_IP%.nip.io > %OS_PROJECT%.processed.yml
 oc apply -f %OS_PROJECT%.processed.yml
 ```
