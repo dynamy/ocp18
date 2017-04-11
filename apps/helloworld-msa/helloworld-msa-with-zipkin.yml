@@ -430,7 +430,7 @@ objects:
           - name: "AB_ENABLED"
             value: "jolokia"
           - name: "ZIPKIN_SERVER_URL"
-            value: "http://zipkin-${OS_PROJECT}.${OS_MASTER_IP}.xip.io"
+            value: "http://zipkin-${OS_PROJECT}.${OS_SUBDOMAIN}"
           ports:
           - containerPort: 8080
             protocol: "TCP"
@@ -504,7 +504,7 @@ objects:
           - name: "AB_ENABLED"
             value: "jolokia"
           - name: "ZIPKIN_SERVER_URL"
-            value: "http://zipkin-${OS_PROJECT}.${OS_MASTER_IP}.xip.io"
+            value: "http://zipkin-${OS_PROJECT}.${OS_SUBDOMAIN}"
           ports:
           - containerPort: 8080
             protocol: "TCP"
@@ -576,7 +576,7 @@ objects:
           image: "metmajer/redhatmsa-bonjour"
           env:
           - name: "ZIPKIN_SERVER_URL"
-            value: "http://zipkin-${OS_PROJECT}.${OS_MASTER_IP}.xip.io"
+            value: "http://zipkin-${OS_PROJECT}.${OS_SUBDOMAIN}"
           ports:
           - containerPort: 8080
             protocol: "TCP"
@@ -634,7 +634,7 @@ objects:
           image: "metmajer/redhatmsa-hola"
           env:
           - name: "ZIPKIN_SERVER_URL"
-            value: "http://zipkin-${OS_PROJECT}.${OS_MASTER_IP}.xip.io"
+            value: "http://zipkin-${OS_PROJECT}.${OS_SUBDOMAIN}"
           ports:
           - containerPort: 8080
             protocol: "TCP"
@@ -708,7 +708,7 @@ objects:
           - name: "AB_ENABLED"
             value: "jolokia"
           - name: "ZIPKIN_SERVER_URL"
-            value: "http://zipkin-${OS_PROJECT}.${OS_MASTER_IP}.xip.io"
+            value: "http://zipkin-${OS_PROJECT}.${OS_SUBDOMAIN}"
           ports:
           - containerPort: 8080
             protocol: "TCP"
