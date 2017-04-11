@@ -32,9 +32,9 @@ if "${OS_OSCP}" -eq "true"; then
   tar xvzf oc-linux.tar.gz
 else
   # OpenShift Origin
-  wget -q -O oc-linux.tar.gz https://github.com/openshift/origin/releases/download/v1.4.1/openshift-origin-client-tools-v1.4.1-3f9807a-linux-64bit.tar.gz
+  wget -q -O oc-linux.tar.gz https://github.com/openshift/origin/releases/download/v3.6.0-alpha.0/openshift-origin-client-tools-v3.6.0-alpha.0-0343989-linux-64bit.tar.gz
   tar xvzf oc-linux.tar.gz
-  mv openshift-origin-client-tools-v1.4.1+3f9807a-linux-64bit/oc .
+  mv openshift-origin-client-tools-v3.6.0-alpha.0-0343989-linux-64bit/oc .
 fi
 
 sudo chown root:root oc
