@@ -1,13 +1,10 @@
 #!/bin/bash -e
-export OS_PUBLIC_HOSTNAME="${OS_PUBLIC_HOSTNAME:-$OS_MASTER_IP}"
-
 if [ -z "${OS_MASTER_IP}" ]; then
-  echo "Error: the OpenShift Master IP must be provided via the OS_MASTER_IP environment variable."
+  echo "Error: the public IP of the OpenShift master must be provided via the OS_MASTER_IP environment variable."
   exit 1
 fi
 
 # Run OpenShift
-
 oc cluster up --public-hostname="${OS_MASTER_IP}" --routing-suffix="${OS_MASTER_IP}.nip.io"
 sudo cp /var/lib/origin/openshift.local.config/master/admin.kubeconfig ~/.kube/config
 sudo chown "${USER}:${USER}" ~/.kube/config
