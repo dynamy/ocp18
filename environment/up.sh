@@ -12,6 +12,10 @@ oc cluster up --public-hostname="${OS_MASTER_IP}" --routing-suffix="${OS_MASTER_
 sudo cp /var/lib/origin/openshift.local.config/master/admin.kubeconfig ~/.kube/config
 sudo chown "${USER}:${USER}" ~/.kube/config
 
+# Add cluster-admin role to user admin
+oc login -u system:admin
+oc adm policy add-cluster-role-to-user cluster-admin admin
+
 # Install Dynatrace OneAgent
 DT_CLUSTER="${DT_CLUSTER:-live.dynatrace.com}"
 if [ -n "${DT_TENANT_ID}" ] && [ -n "${DT_TENANT_TOKEN}" ]; then
