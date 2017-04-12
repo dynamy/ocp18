@@ -477,6 +477,17 @@ objects:
       kind: "Service"
       name: "api-gateway"
 - apiVersion: "v1"
+  kind: "Route"
+  metadata:
+    name: "jolokia-api-gateway"
+  spec:
+    path: "/jolokia/"
+    port:
+      targetPort: 8778
+    to:
+      kind: "Service"
+      name: "api-gateway"
+- apiVersion: "v1"
   kind: "DeploymentConfig"
   metadata:
     labels:
@@ -547,6 +558,17 @@ objects:
   spec:
     port:
       targetPort: 8080
+    to:
+      kind: "Service"
+      name: "aloha"
+- apiVersion: "v1"
+  kind: "Route"
+  metadata:
+    name: "jolokia-aloha"
+  spec:
+    path: "/jolokia/"
+    port:
+      targetPort: 8778
     to:
       kind: "Service"
       name: "aloha"
@@ -681,6 +703,17 @@ objects:
       kind: "Service"
       name: "hola"
 - apiVersion: "v1"
+  kind: "Route"
+  metadata:
+    name: "jolokia-hola"
+  spec:
+    path: "/jolokia/"
+    port:
+      targetPort: 8778
+    to:
+      kind: "Service"
+      name: "hola"
+- apiVersion: "v1"
   kind: "DeploymentConfig"
   metadata:
     labels:
@@ -751,6 +784,17 @@ objects:
   spec:
     port:
       targetPort: 8080
+    to:
+      kind: "Service"
+      name: "ola"
+- apiVersion: "v1"
+  kind: "Route"
+  metadata:
+    name: "jolokia-ola"
+  spec:
+    path: "/jolokia/"
+    port:
+      targetPort: 8778
     to:
       kind: "Service"
       name: "ola"
