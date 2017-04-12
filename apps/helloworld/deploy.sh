@@ -1,5 +1,5 @@
 #!/bin/bash -e
-OS_PROJECT="${1:-helloworld-msa}"
+OS_PROJECT="${1:-helloworld}"
 
 if [ -z "${OS_MASTER_IP}" ]; then
   echo "Error: the public IP of the OpenShift master must be provided via the OS_MASTER_IP environment variable."

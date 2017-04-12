@@ -26,14 +26,14 @@ wget -q -O master.zip https://github.com/dynatrace-innovationlab/openshift-demo-
 unzip -o master.zip
 cd openshift-demo-environment-master/apps
 
-# Prepare OpenShift 'everest' application
+# Install OpenShift 'everest' application template
 OS_PROJECT=everest
 pushd "${OS_PROJECT}"
 ./deploy.sh "${OS_PROJECT}"
 popd
 
-# Prepare OpenShift 'helloworld-msa' application
-OS_PROJECT=helloworld-msa
+# Install OpenShift 'helloworld' application template
+OS_PROJECT=helloworld
 pushd "${OS_PROJECT}"
 ./deploy.sh "${OS_PROJECT}"
 popd
