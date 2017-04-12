@@ -19,6 +19,8 @@ sed -i.bak "s/value: \"OS_PROJECT\"/value: \"$OS_PROJECT\"/" "${OS_PROJECT}-with
 sed -i.bak "s/value: \"OS_SUBDOMAIN\"/value: \"$OS_MASTER_IP.nip.io\"/" "${OS_PROJECT}-with-zipkin.yml"
 oc create -f "${OS_PROJECT}-with-zipkin.yml"
 
+oc create -f ../common/hawkular-apm-server-deployment.yml
+
 if [ -n "${OS_PULL_DOCKER_IMAGES}" ]; then
   sudo docker pull fabric8/turbine-server:1.0.28
   sudo docker pull fabric8/hystrix-dashboard:1.0.28
