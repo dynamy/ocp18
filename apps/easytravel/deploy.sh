@@ -10,8 +10,6 @@ oc project "${OS_PROJECT}"
 oc create -f "${OS_PROJECT}".yml
 oc create -f "${OS_PROJECT}"-with-loadgen.yml
 
-oc create -f ../common/hawkular-apm-server.yml
-
 if [ -n "${OS_PULL_DOCKER_IMAGES}" ]; then
   sudo docker pull docker.io/dynatrace/easytravel-backend
   sudo docker pull docker.io/dynatrace/easytravel-frontend
