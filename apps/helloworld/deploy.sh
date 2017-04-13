@@ -19,7 +19,9 @@ sed -i.bak "s/value: \"OS_PROJECT\"/value: \"$OS_PROJECT\"/" "${OS_PROJECT}-with
 sed -i.bak "s/value: \"OS_SUBDOMAIN\"/value: \"$OS_MASTER_IP.nip.io\"/" "${OS_PROJECT}-with-zipkin.yml"
 oc create -f "${OS_PROJECT}-with-zipkin.yml"
 
-oc create -f ../common/hawkular-apm-server.yml
+sed -i.bak "s/value: \"OS_PROJECT\"/value: \"$OS_PROJECT\"/" "${OS_PROJECT}-with-hawkular-apm.yml"
+sed -i.bak "s/value: \"OS_SUBDOMAIN\"/value: \"$OS_MASTER_IP.nip.io\"/" "${OS_PROJECT}-with-hawkular-apm.yml"
+oc create -f "${OS_PROJECT}-with-hawkular-apm.yml"
 
 if [ -n "${OS_PULL_DOCKER_IMAGES}" ]; then
   sudo docker pull fabric8/turbine-server:1.0.28
