@@ -16,13 +16,13 @@ Using the `vagrant up` command, Vagrant will spawn a `ubuntu/xenial64` Vagrant b
 
 #### Bind OpenShift to a public IP and hostname
 
-Once inside the virtual machine, determine its public IP address, e.g. via `ifconfig` and set its value to the `OS_MASTER_IP` environment variable in a terminal:
+Once inside the virtual machine, determine its public IP address, e.g. via `ifconfig` and set its value to the `OS_PUBLIC_IP` environment variable in a terminal:
 
 ```
-export OS_MASTER_IP="1.2.3.4"
+export OS_PUBLIC_IP="1.2.3.4"
 ```
 
-In many cloud environments, such as Amazon EC2 or Google's GCE, you'll need to determine the machine's public IP through your specific cloud provider. If you want to run in such an environment, you'll need to provide your OpenShift machine's public hostname via the `OS_PUBLIC_HOSTNAME` environment variable (since, otherwise, you won't be able to publicly expose your application running on OpenShift):
+In many cloud environments, such as Amazon EC2 or Google's GCE, you'll need to determine the machine's public IP through your specific cloud provider. If you want to run in such an environment, you'll need to provide your OpenShift machine's public hostname via the `OS_PUBLIC_HOSTNAME` environment variable, too:
 
 ```
 export OS_PUBLIC_HOSTNAME="openshift.acmeco.com"
@@ -53,7 +53,7 @@ export OS_PULL_DOCKER_IMAGES="true"
 After you've defined all relevant options, installing and running OpenShift on the machine is as simple as running `up.sh`. Here's a complete example:
 
 ```
-export OS_MASTER_IP="1.2.3.4"
+export OS_PUBLIC_IP="1.2.3.4"
 export OS_PULL_DOCKER_IMAGES="true"
 export DT_CLUSTER="live.dynatrace.com"
 export DT_TENANT_ID="123"
