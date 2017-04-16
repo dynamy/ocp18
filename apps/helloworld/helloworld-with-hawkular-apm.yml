@@ -663,6 +663,8 @@ objects:
         - name: "hola"
           image: "metmajer/redhatmsa-hola"
           env:
+          - name: "AB_ENABLED"
+            value: "jolokia"
           - name: "ZIPKIN_SERVER_URL"
             value: "http://hawkular-apm-${OS_PROJECT}.${OS_SUBDOMAIN}"
           ports:
