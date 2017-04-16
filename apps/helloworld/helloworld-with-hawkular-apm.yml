@@ -975,6 +975,14 @@ objects:
     sessionAffinity: None
     type: ClusterIP
 parameters:
+- name: "OS_PROJECT"
+  description: "The name of the project."
+  value: "OS_PROJECT"
+  required: true
+- name: "OS_SUBDOMAIN"
+  description: "The OpenShift master's domain for server routes."
+  value: "OS_SUBDOMAIN"
+  required: true
 - description: The name of the Hawkular APM Service.
   displayName: Hawkular APM Service Name
   name: HAWKULAR_APM_SERVICE_NAME
@@ -991,11 +999,3 @@ parameters:
   generate: expression
   name: HAWKULAR_APM_ADMIN_PASSWORD
   value: "password"
-- name: "OS_PROJECT"
-  description: "The name of the project."
-  value: "OS_PROJECT"
-  required: true
-- name: "OS_SUBDOMAIN"
-  description: "The OpenShift master's domain for server routes."
-  value: "OS_SUBDOMAIN"
-  required: true
