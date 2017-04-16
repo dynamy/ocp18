@@ -1,8 +1,8 @@
 #!/bin/bash -e
 OS_PROJECT="${1:-helloworld}"
 
-if [ -z "${OS_MASTER_IP}" ]; then
-  echo "Error: the public IP of the OpenShift master must be provided via the OS_MASTER_IP environment variable."
+if [ -z "${OS_PUBLIC_IP}" ]; then
+  echo "Error: the public IP of the OpenShift master must be provided via the OS_PUBLIC_IP environment variable."
   exit 1
 fi
 
@@ -12,15 +12,15 @@ oc project "${OS_PROJECT}"
 oc policy add-role-to-user admin "system:serviceaccount:${OS_PROJECT}:turbine"
 
 sed -i.bak "s/value: \"OS_PROJECT\"/value: \"$OS_PROJECT\"/" "${OS_PROJECT}.yml"
-sed -i.bak "s/value: \"OS_SUBDOMAIN\"/value: \"$OS_MASTER_IP.nip.io\"/" "${OS_PROJECT}.yml"
+sed -i.bak "s/value: \"OS_SUBDOMAIN\"/value: \"$OS_PUBLIC_IP.nip.io\"/" "${OS_PROJECT}.yml"
 oc create -f "${OS_PROJECT}.yml"
 
 sed -i.bak "s/value: \"OS_PROJECT\"/value: \"$OS_PROJECT\"/" "${OS_PROJECT}-with-zipkin.yml"
-sed -i.bak "s/value: \"OS_SUBDOMAIN\"/value: \"$OS_MASTER_IP.nip.io\"/" "${OS_PROJECT}-with-zipkin.yml"
+sed -i.bak "s/value: \"OS_SUBDOMAIN\"/value: \"$OS_PUBLIC_IP.nip.io\"/" "${OS_PROJECT}-with-zipkin.yml"
 oc create -f "${OS_PROJECT}-with-zipkin.yml"
 
 sed -i.bak "s/value: \"OS_PROJECT\"/value: \"$OS_PROJECT\"/" "${OS_PROJECT}-with-hawkular-apm.yml"
-sed -i.bak "s/value: \"OS_SUBDOMAIN\"/value: \"$OS_MASTER_IP.nip.io\"/" "${OS_PROJECT}-with-hawkular-apm.yml"
+sed -i.bak "s/value: \"OS_SUBDOMAIN\"/value: \"$OS_PUBLIC_IP.nip.io\"/" "${OS_PROJECT}-with-hawkular-apm.yml"
 oc create -f "${OS_PROJECT}-with-hawkular-apm.yml"
 
 if [ -n "${OS_PULL_DOCKER_IMAGES}" ]; then
