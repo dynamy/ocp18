@@ -830,5 +830,3 @@ parameters:
 - name: "HAWKULAR_APM_ADMIN_PASSWORD"
   description: "The password for the user with administrative privileges."
   value: "password"
-  generate: "expression"
-  from: "[a-zA-Z0-9]{23}"
