@@ -60,9 +60,11 @@ cd openshift-demo-environment-master/apps
 export HAWKULAR_PROJECT=openshift-infra
 
 # Install Hawkular OpenShift Agent (HOSA)
+oc create -f common/hawkular-openshift-agent-configmap.yml -n $HAWKULAR_PROJECT
 oc process -f common/hawkular-openshift-agent.yml -p IMAGE_VERSION=1.4.1.Final | oc create -n $HAWKULAR_PROJECT -f -
 oc adm policy add-cluster-role-to-user hawkular-openshift-agent system:serviceaccount:$HAWKULAR_PROJECT:hawkular-openshift-agent
-oc create -f common/hawkular-openshift-agent-configmap.yml -n openshift
+
+oc create -f common/hawkular-openshift-agent-project-configmap.yml -n openshift
 
 # Install Hawkular APM
 oc create -f common/hawkular-apm-server.yml -n openshift
