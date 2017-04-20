@@ -809,20 +809,24 @@ objects:
 parameters:
 - name: "OS_PROJECT"
   description: "The name of the project."
+  value: "OS_PROJECT"
   required: true
 - name: "OS_SUBDOMAIN"
   description: "The OpenShift master's domain for server routes."
+  value: "OS_SUBDOMAIN"
   required: true
 - name: "HAWKULAR_APM_SERVICE_NAME"
   description: "The name of the Hawkular APM Service."
+  value: "HAWKULAR_APM_SERVICE_NAME"
   required: true
 - name: "HAWKULAR_APM_PROJECT_NAME"
   description: "The name of the Hawkular APM Service's project."
+  value: "HAWKULAR_APM_PROJECT_NAME"
   required: true
 - name: "HAWKULAR_APM_ADMIN_USERNAME"
   description: "The username for the user with administrative privileges."
-  required: true
   value: "admin"
+  required: true
 - name: "HAWKULAR_APM_ADMIN_PASSWORD"
   description: "The password for the user with administrative privileges."
   generate: "expression"
