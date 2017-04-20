@@ -2,7 +2,7 @@
 apiVersion: "v1"
 kind: "Template"
 metadata:
-  name: "helloworld-redhatmsa-with-hawkular-apm-test"
+  name: "helloworld-redhatmsa-with-hawkular-apm"
   annotations:
     description: "The Red Hat HelloWorld MSA (Microservice Architecture) (with Hawkular APM)."
 objects:
@@ -430,7 +430,7 @@ objects:
           - name: "AB_ENABLED"
             value: "jolokia"
           - name: "ZIPKIN_SERVER_URL"
-            value: "http://${HAWKULAR_APM_SERVICE_NAME}-${OS_PROJECT}.${OS_SUBDOMAIN}"
+            value: "http://${HAWKULAR_APM_SERVICE_NAME}-${HAWKULAR_APM_PROJECT_NAME}.${OS_SUBDOMAIN}"
           ports:
           - containerPort: 8080
             protocol: "TCP"
@@ -515,13 +515,13 @@ objects:
           - name: "AB_ENABLED"
             value: "jolokia"
           - name: "HAWKULAR_APM_URI"
-            value: "http://${HAWKULAR_APM_SERVICE_NAME}-${OS_PROJECT}.${OS_SUBDOMAIN}"
+            value: "http://${HAWKULAR_APM_SERVICE_NAME}-${HAWKULAR_APM_PROJECT_NAME}.${OS_SUBDOMAIN}"
           - name: "HAWKULAR_APM_USERNAME"
             value: "${HAWKULAR_APM_ADMIN_USERNAME}"
           - name: "HAWKULAR_APM_PASSWORD"
             value: "${HAWKULAR_APM_ADMIN_PASSWORD}"
           - name: "ZIPKIN_SERVER_URL"
-            value: "http://${HAWKULAR_APM_SERVICE_NAME}-${OS_PROJECT}.${OS_SUBDOMAIN}"
+            value: "http://${HAWKULAR_APM_SERVICE_NAME}-${HAWKULAR_APM_PROJECT_NAME}.${OS_SUBDOMAIN}"
           ports:
           - containerPort: 8080
             protocol: "TCP"
@@ -604,7 +604,7 @@ objects:
           image: "metmajer/redhatmsa-bonjour"
           env:
           - name: "ZIPKIN_SERVER_URL"
-            value: "http://${HAWKULAR_APM_SERVICE_NAME}-${OS_PROJECT}.${OS_SUBDOMAIN}"
+            value: "http://${HAWKULAR_APM_SERVICE_NAME}-${HAWKULAR_APM_PROJECT_NAME}.${OS_SUBDOMAIN}"
           ports:
           - containerPort: 8080
             protocol: "TCP"
@@ -664,7 +664,7 @@ objects:
           - name: "AB_ENABLED"
             value: "jolokia"
           - name: "ZIPKIN_SERVER_URL"
-            value: "http://${HAWKULAR_APM_SERVICE_NAME}-${OS_PROJECT}.${OS_SUBDOMAIN}"
+            value: "http://${HAWKULAR_APM_SERVICE_NAME}-${HAWKULAR_APM_PROJECT_NAME}.${OS_SUBDOMAIN}"
           ports:
           - containerPort: 8080
             protocol: "TCP"
@@ -749,7 +749,7 @@ objects:
           - name: "AB_ENABLED"
             value: "jolokia"
           - name: "ZIPKIN_SERVER_URL"
-            value: "http://${HAWKULAR_APM_SERVICE_NAME}-${OS_PROJECT}.${OS_SUBDOMAIN}"
+            value: "http://${HAWKULAR_APM_SERVICE_NAME}-${HAWKULAR_APM_PROJECT_NAME}.${OS_SUBDOMAIN}"
           ports:
           - containerPort: 8080
             protocol: "TCP"
@@ -829,6 +829,6 @@ parameters:
   required: true
 - name: "HAWKULAR_APM_ADMIN_PASSWORD"
   description: "The password for the user with administrative privileges."
+  value: "password"
   generate: "expression"
   from: "[a-zA-Z0-9]{23}"
-  value: "password"
