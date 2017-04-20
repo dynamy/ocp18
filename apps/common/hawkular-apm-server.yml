@@ -192,3 +192,4 @@ parameters:
   from: '[a-zA-Z0-9]{23}'
   generate: expression
   name: HAWKULAR_APM_ADMIN_PASSWORD
+  value: password
