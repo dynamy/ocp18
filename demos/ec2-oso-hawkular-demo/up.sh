@@ -5,6 +5,14 @@ sudo apt-key adv \
            --keyserver hkp://ha.pool.sks-keyservers.net:80 \
            --recv-keys 58118E89F3A912897C070ADBF76221572C52609D
 
+# Install Dynatrace OneAgent
+DT_CLUSTER="${DT_CLUSTER:-live.dynatrace.com}"
+if [ -n "${DT_TENANT_ID}" ] && [ -n "${DT_TENANT_TOKEN}" ]; then
+  wget -q -O Dynatrace-OneAgent.sh "https://${DT_TENANT_ID}.${DT_CLUSTER}/installer/agent/unix/latest/${DT_TENANT_TOKEN}"
+  sudo /bin/sh Dynatrace-OneAgent.sh APP_LOG_CONTENT_ACCESS=1
+  sleep 120
+fi
+
 # Install tools
 sudo apt-get update
 sudo apt-get install -y socat unzip
@@ -42,13 +50,6 @@ sudo chown "${USER}:${USER}" ~/.kube/config
 # Add cluster-admin role to user admin
 oc login -u system:admin
 oc adm policy add-cluster-role-to-user cluster-admin admin
-
-# Install Dynatrace OneAgent
-DT_CLUSTER="${DT_CLUSTER:-live.dynatrace.com}"
-if [ -n "${DT_TENANT_ID}" ] && [ -n "${DT_TENANT_TOKEN}" ]; then
-  wget -q -O Dynatrace-OneAgent.sh "https://${DT_TENANT_ID}.${DT_CLUSTER}/installer/agent/unix/latest/${DT_TENANT_TOKEN}"
-  sudo /bin/sh Dynatrace-OneAgent.sh APP_LOG_CONTENT_ACCESS=1
-fi
 
 # Install OpenShift demo project
 cd ~
