@@ -425,10 +425,16 @@ objects:
       spec:
         containers:
         - name: "api-gateway"
-          image: "metmajer/redhatmsa-api-gateway"
+          image: "metmajer/redhatmsa-api-gateway:hawkular-apm"
           env:
           - name: "AB_ENABLED"
             value: "jolokia"
+          - name: "HAWKULAR_APM_URI"
+            value: "http://${HAWKULAR_APM_SERVICE_NAME}-${HAWKULAR_APM_PROJECT_NAME}.${OS_SUBDOMAIN}"
+          - name: "HAWKULAR_APM_USERNAME"
+            value: "${HAWKULAR_APM_ADMIN_USERNAME}"
+          - name: "HAWKULAR_APM_PASSWORD"
+            value: "${HAWKULAR_APM_ADMIN_PASSWORD}"
           - name: "ZIPKIN_SERVER_URL"
             value: "http://${HAWKULAR_APM_SERVICE_NAME}-${HAWKULAR_APM_PROJECT_NAME}.${OS_SUBDOMAIN}"
           ports:
@@ -659,10 +665,16 @@ objects:
       spec:
         containers:
         - name: "hola"
-          image: "metmajer/redhatmsa-hola"
+          image: "metmajer/redhatmsa-hola:hawkular-apm"
           env:
           - name: "AB_ENABLED"
             value: "jolokia"
+          - name: "HAWKULAR_APM_URI"
+            value: "http://${HAWKULAR_APM_SERVICE_NAME}-${HAWKULAR_APM_PROJECT_NAME}.${OS_SUBDOMAIN}"
+          - name: "HAWKULAR_APM_USERNAME"
+            value: "${HAWKULAR_APM_ADMIN_USERNAME}"
+          - name: "HAWKULAR_APM_PASSWORD"
+            value: "${HAWKULAR_APM_ADMIN_PASSWORD}"
           - name: "ZIPKIN_SERVER_URL"
             value: "http://${HAWKULAR_APM_SERVICE_NAME}-${HAWKULAR_APM_PROJECT_NAME}.${OS_SUBDOMAIN}"
           ports:
@@ -744,10 +756,16 @@ objects:
       spec:
         containers:
         - name: "ola"
-          image: "metmajer/redhatmsa-ola"
+          image: "metmajer/redhatmsa-ola:hawkular-apm"
           env:
           - name: "AB_ENABLED"
             value: "jolokia"
+          - name: "HAWKULAR_APM_URI"
+            value: "http://${HAWKULAR_APM_SERVICE_NAME}-${HAWKULAR_APM_PROJECT_NAME}.${OS_SUBDOMAIN}"
+          - name: "HAWKULAR_APM_USERNAME"
+            value: "${HAWKULAR_APM_ADMIN_USERNAME}"
+          - name: "HAWKULAR_APM_PASSWORD"
+            value: "${HAWKULAR_APM_ADMIN_PASSWORD}"
           - name: "ZIPKIN_SERVER_URL"
             value: "http://${HAWKULAR_APM_SERVICE_NAME}-${HAWKULAR_APM_PROJECT_NAME}.${OS_SUBDOMAIN}"
           ports:
