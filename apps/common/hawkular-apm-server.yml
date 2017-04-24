@@ -43,6 +43,8 @@ objects:
         containers:
         - capabilities: {}
           env:
+          - name: DT_CLUSTER_ID
+            value: Hawkular APM
           - name: HAWKULAR_APM_ADMIN_USERNAME
             value: ${HAWKULAR_APM_ADMIN_USERNAME}
           - name: HAWKULAR_APM_ADMIN_PASSWORD
@@ -101,6 +103,8 @@ objects:
           env:
           - name: CLUSTER_NAME
             value: ${HAWKULAR_APM_SERVICE_NAME}-es-cluster
+          - name: DT_CLUSTER_ID
+            value: "Hawkular APM: Elasticsearch"
           image: jpkroehling/elasticsearch
           imagePullPolicy: IfNotPresent
           name: ${HAWKULAR_APM_SERVICE_NAME}-es

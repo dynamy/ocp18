@@ -33,6 +33,8 @@ objects:
         - name: "turbine-server"
           image: "fabric8/turbine-server:1.0.28"
           env:
+          - name: "DT_CLUSTER_ID"
+            value: "Turbine"
           - name: "KUBERNETES_NAMESPACE"
             valueFrom:
               fieldRef:
@@ -96,6 +98,9 @@ objects:
         containers:
         - name: "hystrix-dashboard"
           image: "fabric8/hystrix-dashboard:1.0.28"
+          env:
+          - name: "DT_CLUSTER_ID"
+            value: "Hystrix"
           ports:
           - containerPort: 8080
             protocol: "TCP"
@@ -154,6 +159,8 @@ objects:
         - name: "frontend"
           image: "metmajer/redhatmsa-frontend"
           env:
+          - name: "DT_CLUSTER_ID"
+            value: "Red Hat MSA: Frontend"
           - name: "OS_PROJECT"
             value: "${OS_PROJECT}"
           - name: "OS_SUBDOMAIN"
@@ -220,6 +227,8 @@ objects:
           env:
           - name: "AB_ENABLED"
             value: "jolokia"
+          - name: "DT_CLUSTER_ID"
+            value: "Red Hat MSA: API Gateway"
           ports:
           - containerPort: 8080
             protocol: "TCP"
@@ -303,6 +312,8 @@ objects:
           env:
           - name: "AB_ENABLED"
             value: "jolokia"
+          - name: "DT_CLUSTER_ID"
+            value: "Red Hat MSA: Aloha"
           ports:
           - containerPort: 8080
             protocol: "TCP"
@@ -383,6 +394,9 @@ objects:
         containers:
         - name: "bonjour"
           image: "metmajer/redhatmsa-bonjour"
+          env:
+          - name: "DT_CLUSTER_ID"
+            value: "Red Hat MSA: Bonjour"
           ports:
           - containerPort: 8080
             protocol: "TCP"
@@ -438,6 +452,9 @@ objects:
         containers:
         - name: "hola"
           image: "metmajer/redhatmsa-hola"
+          env:
+          - name: "DT_CLUSTER_ID"
+            value: "Red Hat MSA: Hola"
           ports:
           - containerPort: 8080
             protocol: "TCP"
@@ -521,6 +538,8 @@ objects:
           env:
           - name: "AB_ENABLED"
             value: "jolokia"
+          - name: "DT_CLUSTER_ID"
+            value: "Red Hat MSA: Ola"
           ports:
           - containerPort: 8080
             protocol: "TCP"
