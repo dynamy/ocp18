@@ -11,18 +11,18 @@ oc new-project "${OS_PROJECT}" --description="The Red Hat HelloWorld MSA (Micros
 oc project "${OS_PROJECT}"
 oc policy add-role-to-user admin "system:serviceaccount:${OS_PROJECT}:turbine"
 
-sed -i.bak "s/value: \"OS_PROJECT\"/value: \"$OS_PROJECT\"/" "${OS_PROJECT}.yml"
-sed -i.bak "s/value: \"OS_SUBDOMAIN\"/value: \"$OS_PUBLIC_IP.nip.io\"/" "${OS_PROJECT}.yml"
+sed -i.bak "s/value: \"OS_PROJECT\"/value: \"$OS_PROJECT\"/g" "${OS_PROJECT}.yml"
+sed -i.bak "s/value: \"OS_SUBDOMAIN\"/value: \"$OS_PUBLIC_IP.nip.io\"/g" "${OS_PROJECT}.yml"
 oc create -f "${OS_PROJECT}.yml"
   
-sed -i.bak "s/value: \"OS_PROJECT\"/value: \"$OS_PROJECT\"/" "${OS_PROJECT}-with-zipkin.yml"
-sed -i.bak "s/value: \"OS_SUBDOMAIN\"/value: \"$OS_PUBLIC_IP.nip.io\"/" "${OS_PROJECT}-with-zipkin.yml"
+sed -i.bak "s/value: \"OS_PROJECT\"/value: \"$OS_PROJECT\"/g" "${OS_PROJECT}-with-zipkin.yml"
+sed -i.bak "s/value: \"OS_SUBDOMAIN\"/value: \"$OS_PUBLIC_IP.nip.io\"/g" "${OS_PROJECT}-with-zipkin.yml"
 oc create -f "${OS_PROJECT}-with-zipkin.yml"
 
-sed -i.bak "s/value: \"OS_PROJECT\"/value: \"$OS_PROJECT\"/" "${OS_PROJECT}-with-hawkular-apm.yml"
-sed -i.bak "s/value: \"OS_SUBDOMAIN\"/value: \"$OS_PUBLIC_IP.nip.io\"/" "${OS_PROJECT}-with-hawkular-apm.yml"
-sed -i.bak "s/value: \"HAWKULAR_APM_SERVICE_NAME\"/value: \"hawkular-apm\"/" "${OS_PROJECT}-with-hawkular-apm.yml"
-sed -i.bak "s/value: \"HAWKULAR_APM_PROJECT_NAME\"/value: \"openshift-infra\"/" "${OS_PROJECT}-with-hawkular-apm.yml"
+sed -i.bak "s/value: \"OS_PROJECT\"/value: \"$OS_PROJECT\"/g" "${OS_PROJECT}-with-hawkular-apm.yml"
+sed -i.bak "s/value: \"OS_SUBDOMAIN\"/value: \"$OS_PUBLIC_IP.nip.io\"/g" "${OS_PROJECT}-with-hawkular-apm.yml"
+sed -i.bak "s/value: \"HAWKULAR_APM_SERVICE_NAME\"/value: \"hawkular-apm\"/g" "${OS_PROJECT}-with-hawkular-apm.yml"
+sed -i.bak "s/value: \"HAWKULAR_APM_PROJECT_NAME\"/value: \"openshift-infra\"/g" "${OS_PROJECT}-with-hawkular-apm.yml"
 oc create -f "${OS_PROJECT}-with-hawkular-apm.yml"
 
 if [ -n "${OS_PULL_DOCKER_IMAGES}" ]; then
