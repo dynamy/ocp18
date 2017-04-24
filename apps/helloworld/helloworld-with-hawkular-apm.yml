@@ -839,7 +839,7 @@ parameters:
   required: true
 - name: "HAWKULAR_APM_PROJECT_NAME"
   description: "The name of the Hawkular APM Service's project."
-  value: "HAWKULAR_APM_PROJECT_NAME"
+  value: "OS_PROJECT"
   required: true
 - name: "HAWKULAR_APM_ADMIN_USERNAME"
   description: "The username for the user with administrative privileges."
