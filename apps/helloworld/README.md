@@ -54,7 +54,7 @@ The following example sends load to the `api-gateway` component, who'll relay al
 
 ```
 while true; do
-  curl http://api-gateway-helloworld-redhatmsa.1.2.3.4.nip.io/api;
+  curl http://api-gateway-helloworld-redhatmsa.1.2.3.4.nip.io/api/gateway;
   echo "\n";
   sleep 1;
 done
