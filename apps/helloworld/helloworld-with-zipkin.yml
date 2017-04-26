@@ -1,10 +1,13 @@
 ---
 apiVersion: "v1"
 kind: "Template"
+labels:
+  template: "redhatmsa-with-zipkin"
 metadata:
-  name: "helloworld-redhatmsa-with-zipkin"
+  name: "redhatmsa"
   annotations:
-    description: "The Red Hat HelloWorld MSA (Microservice Architecture) (with ZipKin)."
+    openshift.io/display-name": "Red Hat Hello World MSA",
+    description: "The Red Hat Hello World MSA (Microservice Architecture) (with ZipKin)."
 objects:
 - apiVersion: "v1"
   kind: "ServiceAccount"
