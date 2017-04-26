@@ -72,11 +72,9 @@ oc create -f common/hawkular-openshift-agent-project-configmap.yml -n openshift
 
 # Install Hawkular APM
 oc create -f common/hawkular-apm-server.yml -n openshift
-docker pull jboss/hawkular-apm-server
-docker pull jpkroehling/elasticsearch
 
 # Install OpenShift 'helloworld' application template
 OS_PROJECT=helloworld
 pushd "${OS_PROJECT}"
-./deploy.sh "${OS_PROJECT}"
+./deploy-with-hawkular-apm.sh "${OS_PROJECT}"
 popd

@@ -37,7 +37,7 @@ popd
 # Install OpenShift 'helloworld' application template
 OS_PROJECT=helloworld
 pushd "${OS_PROJECT}"
-./deploy.sh "${OS_PROJECT}"
+./deploy-with-zipkin.sh "${OS_PROJECT}"
 popd
 
 # Install OpenShift 'easytravel' application template

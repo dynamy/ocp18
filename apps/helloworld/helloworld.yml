@@ -167,8 +167,6 @@ objects:
             value: "${OS_SUBDOMAIN}"
           - name: "ENABLE_HYSTRIX"
             value: "true"
-          - name: "ENABLE_ZIPKIN"
-            value: "true"
           ports:
           - containerPort: 8080
             protocol: "TCP"
