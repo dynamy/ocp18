@@ -29,7 +29,7 @@ if ! grep -e '--insecure-registry 172.30.0.0/16' /lib/systemd/system/docker.serv
   sudo sed -i 's/ExecStart=\(.*\)/ExecStart=\1 --insecure-registry 172.30.0.0\/16/' /lib/systemd/system/docker.service
 fi
 
-sudo sed -i 's/SocketMode=\(.*\)/SocketMode=0666/' /lib/systemd/system/docker.socketsudo sed -i 's/SocketMode=\(.*\)/SocketMode=0666/' /lib/systemd/system/docker.socket
+sudo sed -i 's/SocketMode=\(.*\)/SocketMode=0666/' /lib/systemd/system/docker.socket
 sudo systemctl daemon-reload
 sudo systemctl restart docker
 
