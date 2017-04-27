@@ -6,7 +6,7 @@ labels:
 metadata:
   name: "redhatmsa"
   annotations:
-    openshift.io/display-name": "Red Hat Hello World MSA",
+    openshift.io/display-name: "Red Hat Hello World MSA"
     description: "The Red Hat Hello World MSA (Microservice Architecture) (with Hawkular APM)."
 objects:
 - apiVersion: "v1"
