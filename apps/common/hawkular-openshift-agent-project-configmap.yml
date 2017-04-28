@@ -21,7 +21,7 @@ objects:
         protocol: http
         port: 8778
         path: /jolokia/
-        collection_interval: 30s
+        collection_interval: 10s
         metrics:
         - name: java.lang:type=Memory
           type: gauge
@@ -33,7 +33,7 @@ objects:
         protocol: http
         port: 8080
         path: /metrics
-        collection_interval: 30s
+        collection_interval: 10s
         metrics:
         - name: hawkular_openshift_agent_metric_data_points_collected_total
         - name: process_cpu_seconds_total
