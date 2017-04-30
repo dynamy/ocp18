@@ -3,7 +3,7 @@ kind: Template
 apiVersion: v1
 name: Hawkular OpenShift Agent Project Configuration Template
 metadata:
-  name: hawkular-openshift-agent-project-configuration
+  name: my-hosa-config
   labels:
     metrics-infra: agent
 objects:
@@ -11,7 +11,7 @@ objects:
   apiVersion: v1
   name: Hawkular OpenShift Agent Project Configuration
   metadata:
-    name: hawkular-openshift-agent-project-configuration
+    name: my-hosa-config
     labels:
       metrics-infra: agent
   data:
