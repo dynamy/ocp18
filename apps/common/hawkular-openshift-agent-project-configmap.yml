@@ -23,13 +23,13 @@ objects:
         path: /jolokia/
         collection_interval: 10s
         metrics:
-        - name: "java.lang:type=Memory#Init"
+        - name: "java.lang:type=Memory#HeapMemoryUsage.init"
           type: gauge
           id:   VM Heap Memory Initial
-        - name: "java.lang:type=Memory#Used"
+        - name: "java.lang:type=Memory#HeapMemoryUsage.used"
           type: gauge
           id:   VM Heap Memory Used
-        - name: "java.lang:type=Memory#Max"
+        - name: "java.lang:type=Memory#HeapMemoryUsage.max"
           type: gauge
           id:   VM Heap Memory Maximum
         - name: "java.lang:type=Threading#ThreadCount"
