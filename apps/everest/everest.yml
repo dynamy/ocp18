@@ -33,7 +33,7 @@ objects:
             protocol: "TCP"
           readinessProbe:
             httpGet:
-              path: "/everest-1.0"
+              path: "/"
               port: 8080
             initialDelaySeconds: 15
             timeoutSeconds: 5
