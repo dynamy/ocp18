@@ -461,6 +461,10 @@ objects:
           - containerPort: 9779
             protocol: "TCP"
           resources: {}
+        volumes:
+        - name: hawkular-openshift-agent
+          configMap:
+            name: my-hosa-config
   status: {}
 - apiVersion: "v1"
   kind: "Service"

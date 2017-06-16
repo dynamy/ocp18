@@ -11,6 +11,17 @@ oc new-project "${OS_PROJECT}" --description="The Red Hat HelloWorld MSA (Micros
 oc project "${OS_PROJECT}"
 oc policy add-role-to-user admin "system:serviceaccount:${OS_PROJECT}:turbine"
 
+# Install Hawkular OpenShift Agent (HOSA)
+export HOSA_PROJECT=openshift-infra
+oc create -f ../common/hawkular-openshift-agent-configmap.yml -n $HOSA_PROJECT
+oc process -f ../common/hawkular-openshift-agent.yml -p IMAGE_VERSION=1.4.1.Final | oc create -n $HOSA_PROJECT -f -
+oc adm policy add-cluster-role-to-user hawkular-openshift-agent system:serviceaccount:$HOSA_PROJECT:hawkular-openshift-agent
+oc process -f ../common/hawkular-openshift-agent-project-configmap.yml | oc create -n $OS_PROJECT -f -
+
+# Install Hawkular APM
+oc process -f ../common/hawkular-apm-server.yml | oc create -n $OS_PROJECT -f -
+
+# Install Hello World MSA Template
 sed -i.bak "s/value: \"OS_PROJECT\"/value: \"$OS_PROJECT\"/g" "${OS_PROJECT}-with-hawkular-apm.yml"
 sed -i.bak "s/value: \"OS_SUBDOMAIN\"/value: \"$OS_PUBLIC_IP.nip.io\"/g" "${OS_PROJECT}-with-hawkular-apm.yml"
 sed -i.bak "s/value: \"HAWKULAR_APM_SERVICE_NAME\"/value: \"hawkular-apm\"/g" "${OS_PROJECT}-with-hawkular-apm.yml"
