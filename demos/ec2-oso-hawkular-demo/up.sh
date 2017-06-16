@@ -64,6 +64,6 @@ cd openshift-demo-environment-master/apps
 OS_PROJECT=helloworld
 pushd "${OS_PROJECT}"
 ./deploy-with-hawkular-apm.sh "${OS_PROJECT}"
-oc process redhatmsa
-oc process hawkular-apm
+oc process redhatmsa | oc create -f -
+oc process hawkular-apm | oc create -f -
 popd
