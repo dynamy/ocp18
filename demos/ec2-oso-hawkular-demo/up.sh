@@ -60,21 +60,10 @@ wget -q -O master.zip https://github.com/dynatrace-innovationlab/openshift-demo-
 unzip -o master.zip
 cd openshift-demo-environment-master/apps
 
-# Install Hawkular
-export HAWKULAR_PROJECT=openshift-infra
-
-# Install Hawkular OpenShift Agent (HOSA)
-oc create -f common/hawkular-openshift-agent-configmap.yml -n $HAWKULAR_PROJECT
-oc process -f common/hawkular-openshift-agent.yml -p IMAGE_VERSION=1.4.1.Final | oc create -n $HAWKULAR_PROJECT -f -
-oc adm policy add-cluster-role-to-user hawkular-openshift-agent system:serviceaccount:$HAWKULAR_PROJECT:hawkular-openshift-agent
-
-oc create -f common/hawkular-openshift-agent-project-configmap.yml -n openshift
-
-# Install Hawkular APM
-oc create -f common/hawkular-apm-server.yml -n openshift
-
 # Install OpenShift 'helloworld' application template
 OS_PROJECT=helloworld
 pushd "${OS_PROJECT}"
 ./deploy-with-hawkular-apm.sh "${OS_PROJECT}"
+oc process redhatmsa
+oc process hawkular-apm
 popd
