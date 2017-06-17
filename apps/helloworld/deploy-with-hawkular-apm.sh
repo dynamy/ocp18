@@ -30,15 +30,13 @@ oc create -f ../common/hawkular-apm-server.yml -n ${OS_PROJECT}
 if [ -n "${OS_PULL_DOCKER_IMAGES}" ]; then
   sudo docker pull fabric8/turbine-server:1.0.28
   sudo docker pull fabric8/hystrix-dashboard:1.0.28
-  sudo docker pull gencatcloud/mysql-openshift:5.7
   sudo docker pull hawkular/hawkular-openshift-agent:1.4.1.Final
   sudo docker pull jboss/hawkular-apm-server
   sudo docker pull jpkroehling/elasticsearch
   sudo docker pull metmajer/redhatmsa-frontend
-  sudo docker pull metmajer/redhatmsa-api-gateway
-  sudo docker pull metmajer/redhatmsa-aloha
+  sudo docker pull metmajer/redhatmsa-api-gateway:hawkular-apm
+  sudo docker pull metmajer/redhatmsa-aloha:hawkular-apm
   sudo docker pull metmajer/redhatmsa-bonjour
-  sudo docker pull metmajer/redhatmsa-hola
-  sudo docker pull metmajer/redhatmsa-ola
-  sudo docker pull openzipkin/zipkin:1.22
+  sudo docker pull metmajer/redhatmsa-hola:hawkular-apm
+  sudo docker pull metmajer/redhatmsa-ola:hawkular-apm
 fi
