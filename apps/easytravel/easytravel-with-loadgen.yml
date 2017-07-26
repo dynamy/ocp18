@@ -38,6 +38,11 @@ objects:
               port: 27017
             initialDelaySeconds: 15
             timeoutSeconds: 5
+          livenessProbe:
+            tcpSocket:
+              port: 27017
+            initialDelaySeconds: 60
+            timeoutSeconds: 1
           resources: {}
   status: {}
 - apiVersion: "v1"
@@ -74,6 +79,12 @@ objects:
               port: 8080
             initialDelaySeconds: 15
             timeoutSeconds: 5
+          livenessProbe:
+            httpGet:
+              path: "/"
+              port: 8080
+            initialDelaySeconds: 60
+            timeoutSeconds: 5
           resources: {}
   status: {}
 - apiVersion: "v1"
@@ -109,6 +120,12 @@ objects:
               path: "/"
               port: 8080
             initialDelaySeconds: 15
+            timeoutSeconds: 5
+          livenessProbe:
+            httpGet:
+              path: "/"
+              port: 8080
+            initialDelaySeconds: 60
             timeoutSeconds: 5
           resources: {}
   status: {}
@@ -149,6 +166,12 @@ objects:
               path: "/"
               port: 80
             initialDelaySeconds: 15
+            timeoutSeconds: 5
+          livenessProbe:
+            httpGet:
+              path: "/"
+              port: 80
+            initialDelaySeconds: 60
             timeoutSeconds: 5
           resources: {}
   status: {}
