@@ -4,7 +4,7 @@ if [ -z "${OS_PUBLIC_IP}" ]; then
   exit 1
 fi
 
-OS_PUBLIC_HOSTNAME="${OS_PUBLIC_HOSTNAME:-OS_PUBLIC_IP}"
+OS_PUBLIC_HOSTNAME="${OS_PUBLIC_HOSTNAME:-$OS_PUBLIC_IP}"
 
 # Run OpenShift
 oc cluster up --public-hostname="${OS_PUBLIC_HOSTNAME}" --routing-suffix="${OS_PUBLIC_IP}.nip.io"
