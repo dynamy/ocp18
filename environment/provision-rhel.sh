@@ -22,10 +22,10 @@ sudo sed -i 's/ExecStart=\(.*\)/ExecStart=\1 --insecure-registry 172.30.0.0\/16/
 sudo systemctl daemon-reload
 sudo systemctl restart docker
 
-wget -q -O oc-linux.tar.gz https://github.com/openshift/origin/releases/download/v3.6.0-alpha.2/openshift-origin-client-tools-v3.6.0-alpha.2-3c221d5-linux-64bit.tar.gz
+# Install oc CLI for OpenShift Origin
+wget -q -O oc-linux.tar.gz https://github.com/openshift/origin/releases/download/v3.6.0/openshift-origin-client-tools-v3.6.0-c4dd4cf-linux-64bit.tar.gz
 tar xvzf oc-linux.tar.gz
-
-mv openshift-origin-client-tools-v3.6.0-alpha.2-3c221d5-linux-64bit/oc .
+mv openshift-origin-client-tools-v3.6.0-c4dd4cf-linux-64bit/oc .
 
 sudo chown root:root oc
 sudo mv oc /usr/bin
