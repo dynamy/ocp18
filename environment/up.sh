@@ -15,10 +15,14 @@ sudo chown "${USER}:${USER}" ~/.kube/config
 oc login -u system:admin
 oc adm policy add-cluster-role-to-user cluster-admin admin
 
+# Add dynatrace as privileged user to the openshift-infra project
+oc project openshift-infra
+oc create serviceaccount dynatrace
+oc adm policy add-scc-to-user privileged -z dynatrace
+
 # Install Dynatrace OneAgent
-DT_CLUSTER="${DT_CLUSTER:-live.dynatrace.com}"
-if [ -n "${DT_TENANT_ID}" ] && [ -n "${DT_TENANT_TOKEN}" ]; then
-  wget -q -O Dynatrace-OneAgent.sh "https://${DT_TENANT_ID}.${DT_CLUSTER}/installer/agent/unix/latest/${DT_TENANT_TOKEN}"
+if [ -n "${ONEAGENT_INSTALLER_SCRIPT_URL}" ] ]; then
+  wget -q -O Dynatrace-OneAgent.sh "${ONEAGENT_INSTALLER_SCRIPT_URL}"
   sudo /bin/sh Dynatrace-OneAgent.sh APP_LOG_CONTENT_ACCESS=1
 fi
 
