@@ -30,14 +30,12 @@ export OS_PUBLIC_HOSTNAME="openshift.acmeco.com"
 
 #### Add Dynatrace (optional)
 
-In addition to running OpenShift, you'll want to have the demo environment equipped with Dynatrace OneAgent. You can do so by applying the following environment variables, where `DT_TENANT_ID` and `DT_TENANT_TOKEN` are to be taken from your Dynatrace installation (and `DT_CLUSTER` defaults to `live.dynatrace.com`):
+In addition to running OpenShift, you'll want to have the demo environment equipped with Dynatrace OneAgent. You can do so by applying the following `ONEAGENT_INSTALLER_SCRIPT_URL` environment variable, which has to be taken from the *Deploy Dynatrace / Start Installation / Linux* screen in Dynatrace:
 
 ![OneAgent Installation](https://github.com/dynatrace-innovationlab/openshift-demo-environment/raw/images/oneagent-installation.png)
 
 ```
-export DT_CLUSTER="live.dynatrace.com"
-export DT_TENANT_ID="123"
-export DT_TENANT_TOKEN="abc"
+export ONEAGENT_INSTALLER_SCRIPT_URL="https://abcdefgh.live.dynatrace.com/..."
 ```
 
 #### Speed up application startup times (optional)
@@ -55,9 +53,7 @@ After you've defined all relevant options, installing and running OpenShift on t
 ```
 export OS_PUBLIC_IP="1.2.3.4"
 export OS_PULL_DOCKER_IMAGES="true"
-export DT_CLUSTER="live.dynatrace.com"
-export DT_TENANT_ID="123"
-export DT_TENANT_TOKEN="abc"
+export ONEAGENT_INSTALLER_SCRIPT_URL="https://abcdefgh.live.dynatrace.com/..."
 ./up.sh
 ```
 
