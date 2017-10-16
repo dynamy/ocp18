@@ -21,7 +21,7 @@ oc create serviceaccount dynatrace
 oc adm policy add-scc-to-user privileged -z dynatrace
 
 # Install Dynatrace OneAgent
-if [ -n "${ONEAGENT_INSTALLER_SCRIPT_URL}" ] ]; then
+if [ -n "${ONEAGENT_INSTALLER_SCRIPT_URL}" ]; then
   wget -q -O Dynatrace-OneAgent.sh "${ONEAGENT_INSTALLER_SCRIPT_URL}"
   sudo /bin/sh Dynatrace-OneAgent.sh APP_LOG_CONTENT_ACCESS=1
 fi
