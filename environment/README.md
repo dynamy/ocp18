@@ -32,7 +32,7 @@ In many cloud environments, such as Amazon EC2 or Google's GCE, you'll need to d
 export OS_PUBLIC_HOSTNAME="openshift.acmeco.com"
 ```
 
-#### Add Dynatrace (optional)
+#### Deploy OneAgent (optional)
 
 In addition to running OpenShift, you'll want to have the demo environment equipped with Dynatrace OneAgent. There are two ways to accomplish this: 
 a faster way especially for this demo by applying the following `ONEAGENT_INSTALLER_SCRIPT_URL` environment variable, which has to be taken from the *Deploy Dynatrace / Start Installation / Linux* screen in Dynatrace:
@@ -56,12 +56,9 @@ export OS_PULL_DOCKER_IMAGES="true"
 
 ### 2. Install and run OpenShift
 
-After you've defined all relevant options, installing and running OpenShift on the machine is as simple as running `up.sh`. Here's a complete example:
+After you've defined all relevant options, installing and running OpenShift on the machine is as simple as running `up.sh`:
 
 ```
-export OS_PUBLIC_IP="1.2.3.4"
-export OS_PULL_DOCKER_IMAGES="true"
-export ONEAGENT_INSTALLER_SCRIPT_URL="https://abcdefgh.live.dynatrace.com/..."
 ./up.sh
 ```
 
