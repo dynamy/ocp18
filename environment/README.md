@@ -3,18 +3,20 @@
 The following combination of `Vagrantfile`, `provision.sh` and `up.sh` files allows you to quickly set up an OpenShift Origin cluster inside a virtual machine that will expose applications to the outside world. The `provision.sh` script will be executed by the `Vagrantfile` (but can also be used standalone) to prepare the environment (as of now based on Ubuntu 16.04). Subsequently, `up.sh` installs an [OpenShift Origin](https://github.com/openshift/origin) release from GitHub and pre-configures the cluster with a variety of sample applications, ready for 1-click deployments.
 
 ## Prerequisites
-### Supported Operating Systems
+### Environment requirements
 
-The demo environment can be set up directly on Windows 10, or on a virtual machine using Ubuntu 16.04. At the moment it was not sucessful when using the most current Ubuntu version 17.10.  
+The demo environment can be set up directly on Windows 10, or on a virtual machine using Ubuntu 16.04. At the moment it was not sucessful when using the most current Ubuntu version 17.10.
+Furthermore, it requires having [VirtualBox](https://www.virtualbox.org/) installed and enough resources to spawn a VM.
 
-### Vagrant
+### Preparation
 
-[Vagrant](https://www.vagrantup.com/) is a convenience layer on top of virtualization technologies, such as VirtualBox, VMware and others, and has to be installed on your machine. The `Vagrantfile` assumes that you'll be using [VirtualBox](https://www.virtualbox.org/), which is another preqrequisite.
+* Download and extract this repository if not done yet.
+* Download and install [Vagrant](https://www.vagrantup.com/) if it's not already installed. Vagrant is a convenience layer on top of virtualization technologies, such as VirtualBox, VMware and others.
 
 ## How to deploy?
 Preparation: when using Ubuntu 16.04 as operating system, prepare the environment by executing the `provision.sh` script.
 
-Using the `vagrant up` command, Vagrant will automatically spawn a `ubuntu/xenial64` Vagrant box from [vagrantbox.es](http://www.vagrantbox.es/). 
+Go to the directory containing the `vagrant_file` and execute the `vagrant up` command. Vagrant will automatically spawn a `ubuntu/xenial64` Vagrant box from [vagrantbox.es](http://www.vagrantbox.es/). 
 Once the virtual machine has been launched, run `vagrant ssh` on your terminal to connect into the virtual machine via SSH.
 
 ### 1. Apply your settings
