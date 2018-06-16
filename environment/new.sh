@@ -51,10 +51,10 @@ export OS_PULL_DOCKER_IMAGES="true"
 OS_PUBLIC_HOSTNAME="${OS_PUBLIC_HOSTNAME:-$OS_PUBLIC_IP}"
 
 # Run OpenShift
-oc cluster up --public-hostname="${OS_PUBLIC_HOSTNAME}" --routing-suffix="${OS_PUBLIC_IP}.nip.io"
 mkdir ~/.kube
 sudo cp /var/lib/origin/openshift.local.config/master/admin.kubeconfig ~/.kube/config
 sudo chown "${USER}:${USER}" ~/.kube/config
+oc cluster up --public-hostname="${OS_PUBLIC_HOSTNAME}" --routing-suffix="${OS_PUBLIC_IP}.nip.io"
 
 # Add cluster-admin role to user admin
 oc login -u system:admin
