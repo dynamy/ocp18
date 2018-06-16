@@ -32,16 +32,14 @@ sudo systemctl restart docker
 wget -q -O oc-linux.tar.gz https://github.com/openshift/origin/releases/download/v3.7.2/openshift-origin-client-tools-v3.7.2-282e43f-linux-64bit.tar.gz
 tar xvzf oc-linux.tar.gz
 mv openshift-origin-client-tools-v3.7.2-282e43f-linux-64bit/oc .
-
 sudo chown root:root oc
 sudo mv oc /usr/bin
-
 sudo gpasswd -a ec2-user docker
-#newgrp docker
 
 #Clone + Enter repo
 git clone https://github.com/dynamy/ocp18.git
-cd /home/ec2-user/ocp18
+mv /home/ec2-user/ocp18/start.sh /home/ec2-user/
+chmod 755 /home/ec2-user/start.sh
 
 export OS_PUBLIC_IP=`curl http://169.254.169.254/latest/meta-data/public-ipv4`
 export OS_PUBLIC_HOSTNAME=`curl http://169.254.169.254/latest/meta-data/public-hostname`
