@@ -52,8 +52,8 @@ OS_PUBLIC_HOSTNAME="${OS_PUBLIC_HOSTNAME:-$OS_PUBLIC_IP}"
 
 # Run OpenShift
 oc cluster up --public-hostname="${OS_PUBLIC_HOSTNAME}" --routing-suffix="${OS_PUBLIC_IP}.nip.io"
-mkdir .kube
-sudo cp /var/lib/origin/openshift.local.config/master/admin.kubeconfig /home/ec2-user/ocp18/.kube/config
+mkdir ~/.kube
+cp /var/lib/origin/openshift.local.config/master/admin.kubeconfig /home/ec2-user/ocp18/.kube/config
 sudo chown "${USER}:${USER}" /home/ec2-user/ocp18/.kube/config
 
 # Add cluster-admin role to user admin
