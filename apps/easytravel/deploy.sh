@@ -11,9 +11,9 @@ oc create -f "${OS_PROJECT}".yml
 oc create -f "${OS_PROJECT}"-with-loadgen.yml
 
 if [ -n "${OS_PULL_DOCKER_IMAGES}" ]; then
-  sudo docker pull docker.io/dynatrace/easytravel-backend
-  sudo docker pull docker.io/dynatrace/easytravel-frontend
-  sudo docker pull docker.io/dynatrace/easytravel-loadgen
-  sudo docker pull docker.io/dynatrace/easytravel-mongodb
-  sudo docker pull docker.io/dynatrace/easytravel-nginx
+        sudo docker pull dynatrace/easytravel-mongodb
+        sudo docker pull dynatrace/easytravel-backend
+        sudo docker pull dynatrace/easytravel-frontend
+        sudo docker pull dynatrace/easytravel-nginx
+        sudo docker pull emperorwilson/easytravel-loadgen-dt
 fi
