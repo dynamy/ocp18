@@ -36,8 +36,8 @@ mv openshift-origin-client-tools-v3.7.2-282e43f-linux-64bit/oc .
 sudo chown root:root oc
 sudo mv oc /usr/bin
 
-sudo gpasswd -a $USER docker
-newgrp docker
+sudo gpasswd -a ec2-user docker
+#newgrp docker
 
 #Clone + Enter repo
 git clone https://github.com/dynamy/ocp18.git
