@@ -49,12 +49,11 @@ export OS_PULL_DOCKER_IMAGES="true"
 OS_PUBLIC_HOSTNAME="${OS_PUBLIC_HOSTNAME:-$OS_PUBLIC_IP}"
 
 # Run OpenShift
+cd /home/ec2-user
 oc cluster up --public-hostname="${OS_PUBLIC_HOSTNAME}" --routing-suffix="${OS_PUBLIC_IP}.nip.io"
 sleep 3
-cd ~
-mkdir ~/.kube
-sudo cp /var/lib/origin/openshift.local.config/master/admin.kubeconfig ~/.kube/config
-sudo chown "${USER}:${USER}" ~/.kube/config
+sudo cp /var/lib/origin/openshift.local.config/master/admin.kubeconfig /home/ec2-user/.kube/config
+sudo chown "${USER}:${USER}" /home/ec2-user/.kube/config
 
 # Add cluster-admin role to user admin
 #oc login https://ec2-52-221-223-60.ap-southeast-1.compute.amazonaws.com:8443 -u system:admin
