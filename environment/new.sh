@@ -41,6 +41,9 @@ cd /home/ec2-user/ocp18
 #export OS_PUBLIC_IP="1.2.3.4"
 #export OS_PUBLIC_HOSTNAME="openshift.acmeco.com"
 
+#curl http://169.254.169.254/latest/meta-data/public-hostname
+#curl http://169.254.169.254/latest/meta-data/public-ipv4
+
 # SET env var
 OS_PUBLIC_HOSTNAME="${OS_PUBLIC_HOSTNAME:-$OS_PUBLIC_IP}"
 
