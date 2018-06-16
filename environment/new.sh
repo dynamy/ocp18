@@ -2,8 +2,8 @@
 
 # move to the ec2-user directory and update yum
 cd /home/ec2-user
-yum update -y
-yum install curl-devel expat-devel gettext-devel openssl-devel zlib-devel socat unzip wget -y
+sudo yum update -y
+sudo yum install curl-devel expat-devel gettext-devel openssl-devel zlib-devel socat wget -y
 
 # This downloads the OneAgent installer from your tenant
 wget --no-check-certificate -O Dynatrace-OneAgent-Linux.sh "https://[YourDynatraceTenant]/api/v1/deployment/installer/agent/unix/default/latest?Api-Token=[YourToken]&arch=x86&flavor=default"
