@@ -37,7 +37,7 @@ sudo chown root:root oc
 sudo mv oc /usr/bin
 
 sudo gpasswd -a $USER docker
-sudo newgrp docker
+newgrp docker
 
 #Clone + Enter repo
 git clone https://github.com/dynamy/ocp18.git
