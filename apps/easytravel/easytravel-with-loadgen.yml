@@ -204,6 +204,8 @@ objects:
             value: "http://www:8080"
           - name: "ET_PROBLEMS_DELAY"
             value: '7500'
+          - name: "ET_PROBLEMS"
+            value: 'CPULoad,DatabaseSlowdown,JourneySearchError500,LoginProblems,TravellersOptionBox'
           resources: {}
   status: {}
 - apiVersion: "v1"
