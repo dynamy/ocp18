@@ -59,7 +59,7 @@ sudo chown "${USER}:${USER}" ~/.kube/config
 
 # Add cluster-admin role to user admin
 #oc login https://1.2.3.4:8443 -u developer -p developer --insecure-skip-tls-verify
-oc login https://localhost:8443 -u system:admin --insecure-skip-tls-verify
+oc login https://localhost:8443 -u admin -p admin --insecure-skip-tls-verify
 oc adm policy add-cluster-role-to-user cluster-admin admin
 
 # Add dynatrace as privileged user to the openshift-infra project
