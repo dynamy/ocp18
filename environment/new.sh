@@ -71,3 +71,4 @@ OS_PROJECT=easytravel
 pushd "${OS_PROJECT}"
 ./deploy.sh "${OS_PROJECT}"
 popd
+exit
