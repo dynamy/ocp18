@@ -53,7 +53,7 @@ cd /home/ec2-user
 oc cluster up --public-hostname="${OS_PUBLIC_HOSTNAME}" --routing-suffix="${OS_PUBLIC_IP}.nip.io"
 sleep 3
 sudo cp /var/lib/origin/openshift.local.config/master/admin.kubeconfig /home/ec2-user/.kube/config
-sudo chown "${USER}:${USER}" /home/ec2-user/.kube/config
+sudo chown "ec2-user:ec2-user" /home/ec2-user/.kube/config
 
 # Add cluster-admin role to user admin
 #oc login https://ec2-52-221-223-60.ap-southeast-1.compute.amazonaws.com:8443 -u system:admin
@@ -72,7 +72,7 @@ cd /home/ec2-user/ocp18/apps
 OS_PROJECT=easytravel
 pushd "${OS_PROJECT}"
 oc adm policy add-scc-to-user anyuid -z default -n "${OS_PROJECT}"
-oc login https://localhost:8443 -u developer -p developer --insecure-skip-tls-verify
+oc login "${loginserver}" -u developer -p developer --insecure-skip-tls-verify
 oc new-project "${OS_PROJECT}" --description="The Dynatrace easyTravel sample application." || true
 oc project "${OS_PROJECT}"
 oc create -f "${OS_PROJECT}"-with-loadgen.yml
