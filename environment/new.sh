@@ -52,14 +52,16 @@ OS_PUBLIC_HOSTNAME="${OS_PUBLIC_HOSTNAME:-$OS_PUBLIC_IP}"
 
 # Run OpenShift
 oc cluster up --public-hostname="${OS_PUBLIC_HOSTNAME}" --routing-suffix="${OS_PUBLIC_IP}.nip.io"
+sleep 3
 cd ~
 mkdir ~/.kube
 sudo cp /var/lib/origin/openshift.local.config/master/admin.kubeconfig ~/.kube/config
 sudo chown "${USER}:${USER}" ~/.kube/config
 
 # Add cluster-admin role to user admin
-#oc login https://1.2.3.4:8443 -u developer -p developer --insecure-skip-tls-verify
-oc login https://localhost:8443 -u admin -p admin --insecure-skip-tls-verify
+#oc login https://ec2-52-221-223-60.ap-southeast-1.compute.amazonaws.com:8443 -u system:admin
+export loginserver=`echo "https://${OS_PUBLIC_HOSTNAME}:8443"`
+oc login "${loginserver}" -u system:admin
 oc adm policy add-cluster-role-to-user cluster-admin admin
 
 # Add dynatrace as privileged user to the openshift-infra project
